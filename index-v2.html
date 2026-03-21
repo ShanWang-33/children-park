@@ -23,7 +23,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);color:v
 
 /* Deck */
 .deck{display:flex;width:100%;height:100%;transition:transform .8s cubic-bezier(.4,.0,.2,1)}
-.slide{min-width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:clamp(1.5rem,4vw,4rem)}
+.slide{min-width:100vw;height:100vh;height:100dvh;display:flex;align-items:flex-start;justify-content:center;position:relative;overflow-x:hidden;overflow-y:auto;padding:clamp(1.5rem,4vw,4rem);padding-bottom:72px;-webkit-overflow-scrolling:touch}
 
 /* Slide backgrounds */
 .slide::before{content:'';position:absolute;inset:0;opacity:.4;z-index:0;pointer-events:none}
@@ -73,7 +73,25 @@ p{line-height:1.7;color:var(--ink2)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2vw,1.5rem)}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,1.5vw,1.2rem)}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.6rem,1.2vw,1rem)}
-@media(max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr}.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .slide{align-items:flex-start;padding-top:1.5rem}
+  .slide-inner{padding-top:.5rem}
+  h1{font-size:clamp(1.6rem,8vw,2.4rem)}
+  h2{font-size:clamp(1.1rem,5vw,1.6rem)}
+  .hero-num{font-size:clamp(2.2rem,10vw,3.5rem)}
+  .stats{flex-wrap:wrap}.stat{min-width:45%}
+  .tbl-wrap{max-height:none}
+  table .mob-hide{display:none}
+  .nav-bar .nav-num{font-size:.6rem}
+  .nav-btn{width:26px;height:26px}
+  .nav-arrow{width:30px;height:30px}
+  .flex-row{gap:1rem}
+  .chart-box canvas{max-height:220px}
+  .card{padding:.8rem}
+  .badge{margin-bottom:.6em;font-size:.7rem}
+}
 .flex-row{display:flex;gap:clamp(1.5rem,3vw,3rem);align-items:start}
 @media(max-width:900px){.flex-row{flex-direction:column}}
 .flex-row>*{flex:1;min-width:0}
@@ -188,7 +206,7 @@ table .has-note:hover td:first-child::after{background:var(--gold);color:#fff}
 .mini-item .tip{margin-left:auto;margin-right:.3em}
 
 @media(max-width:860px){
-  .tip-pop{left:auto;right:0;top:calc(100% + 6px);transform:none;width:240px}
+  .tip-pop,.tip-pop.flip{position:fixed;left:5vw;right:5vw;top:auto;bottom:70px;transform:none;width:auto;max-width:90vw;z-index:200}
   .tip-pop::before{display:none}
 }
 
@@ -248,27 +266,27 @@ table .has-note:hover td:first-child::after{background:var(--gold);color:#fff}
     </div>
     <div class="tbl-wrap" style="margin-top:1em">
       <table>
-        <thead><tr><th>项目</th><th>规格说明</th><th>园区位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
+        <thead><tr><th>项目</th><th class="mob-hide">规格说明</th><th class="mob-hide">园区位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
         <tbody>
-          <tr class="has-note"><td><strong>巨型充气麦兜</strong><br><span style="color:var(--muted);font-size:.7rem">8-10米高，入口视觉锚点</span></td><td>定制超轻TPU材料，含电动气泵、地锚</td><td>北门入口</td><td>1套</td><td class="price-cell">¥12,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>巨型充气麦兜</strong><br><span style="color:var(--muted);font-size:.7rem">8-10米高，入口视觉锚点</span></td><td class="mob-hide">定制超轻TPU材料，含电动气泵、地锚</td><td class="mob-hide">北门入口</td><td>1套</td><td class="price-cell">¥12,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">高度8-10m在封闭园区内视野充足，无需更大；含安装指导</td></tr>
-          <tr class="has-note"><td><strong>全身玩偶套装</strong><br><span style="color:var(--muted);font-size:.7rem">2麦兜+1麦太</span></td><td>商业级定制玩偶服，拉绒/牛津布面料</td><td>全园巡游</td><td>3套</td><td class="price-cell">¥10,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>全身玩偶套装</strong><br><span style="color:var(--muted);font-size:.7rem">2麦兜+1麦太</span></td><td class="mob-hide">商业级定制玩偶服，拉绒/牛津布面料</td><td class="mob-hide">全园巡游</td><td>3套</td><td class="price-cell">¥10,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">因涉及开模定制，暂无租赁；周末常态化巡游时比租赁更划算；建议优先采购</td></tr>
-          <tr class="has-note"><td><strong>人偶扮演兼职</strong></td><td>25天 × 300元/人/日</td><td>全园巡游</td><td>3人</td><td class="price-cell">¥22,500</td><td><span class="method method-hire">招募</span></td></tr>
+          <tr class="has-note"><td><strong>人偶扮演兼职</strong></td><td class="mob-hide">25天 × 300元/人/日</td><td class="mob-hide">全园巡游</td><td>3人</td><td class="price-cell">¥22,500</td><td><span class="method method-hire">招募</span></td></tr>
           <tr class="note-row"><td colspan="6">开园日及开园后3个月的每个周末</td></tr>
-          <tr class="has-note"><td><strong>麦兜花车</strong><br><span style="color:var(--muted);font-size:.7rem">电瓶观光车改装</span></td><td>IP彩色贴膜+PVC装饰板+LED灯条</td><td>全园主路</td><td>2辆</td><td class="price-cell">¥20,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>麦兜花车</strong><br><span style="color:var(--muted);font-size:.7rem">电瓶观光车改装</span></td><td class="mob-hide">IP彩色贴膜+PVC装饰板+LED灯条</td><td class="mob-hide">全园主路</td><td>2辆</td><td class="price-cell">¥20,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">贴膜200-400元/㎡，全车约15-25㎡；装饰件淘宝采购</td></tr>
-          <tr class="has-note"><td><strong>移动餐车布置</strong><br><span style="color:var(--muted);font-size:.7rem">港式茶餐厅风格</span></td><td>定制餐车加装IP贴膜+招牌+摆件</td><td>活动草坪区</td><td>1辆</td><td class="price-cell">¥35,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>移动餐车布置</strong><br><span style="color:var(--muted);font-size:.7rem">港式茶餐厅风格</span></td><td class="mob-hide">定制餐车加装IP贴膜+招牌+摆件</td><td class="mob-hide">活动草坪区</td><td>1辆</td><td class="price-cell">¥35,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">车内基础的开关、照明、水路、电路插座，麦兜主题港式茶餐厅风格</td></tr>
-          <tr class="has-note"><td><strong>春田花花手工坊</strong></td><td>折叠桌椅×10+IP背景板+材料包200份</td><td>洞洞家园</td><td>1处</td><td class="price-cell">¥8,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>春田花花手工坊</strong></td><td class="mob-hide">折叠桌椅×10+IP背景板+材料包200份</td><td class="mob-hide">洞洞家园</td><td>1处</td><td class="price-cell">¥8,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">材料包补货30-60元/份；与园区分成；室内场地已有，不计租金</td></tr>
-          <tr class="has-note"><td><strong>甲马版画工具套装</strong></td><td>定制木刻模版3-5款+油墨+拓印工具包</td><td>亲子艺术中心</td><td>3-5款</td><td class="price-cell">¥3,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>甲马版画工具套装</strong></td><td class="mob-hide">定制木刻模版3-5款+油墨+拓印工具包</td><td class="mob-hide">亲子艺术中心</td><td>3-5款</td><td class="price-cell">¥3,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">100-300元/个版（1688定制木版）；配合粤语挑战活动发放；版可长期复用</td></tr>
-          <tr class="has-note"><td><strong>IP衍生品商品</strong><br><span style="color:var(--muted);font-size:.7rem">迷你气球/贴纸/钥匙扣</span></td><td>首批备1个月量的1/3，月度补货</td><td>北门</td><td>2000套</td><td class="price-cell">¥15,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>IP衍生品商品</strong><br><span style="color:var(--muted);font-size:.7rem">迷你气球/贴纸/钥匙扣</span></td><td class="mob-hide">首批备1个月量的1/3，月度补货</td><td class="mob-hide">北门</td><td>2000套</td><td class="price-cell">¥15,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">预计3个月总客流（6-8月）约10万人次；开园月均约3000-4000/日，销售周期3个月；建议月度补货</td></tr>
-          <tr class="has-note"><td><strong>粤语等级挑战区</strong></td><td>防水展板×10+铝合金展架+音频播放器×2</td><td>亲子乐园区</td><td>1处</td><td class="price-cell">¥5,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>粤语等级挑战区</strong></td><td class="mob-hide">防水展板×10+铝合金展架+音频播放器×2</td><td class="mob-hide">亲子乐园区</td><td>1处</td><td class="price-cell">¥5,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">展板150-300元/块；轻量化可移动；人员互动方式，不依赖电子设备</td></tr>
-          <tr class="has-note"><td><strong>麦兜语录气球装置</strong></td><td>定制PVC充气文字+造型，高1-1.5m</td><td>活动草坪区</td><td>6-8件</td><td class="price-cell">¥6,000</td><td><span class="method method-buy">采购</span></td></tr>
+          <tr class="has-note"><td><strong>麦兜语录气球装置</strong></td><td class="mob-hide">定制PVC充气文字+造型，高1-1.5m</td><td class="mob-hide">活动草坪区</td><td>6-8件</td><td class="price-cell">¥6,000</td><td><span class="method method-buy">采购</span></td></tr>
           <tr class="note-row"><td colspan="6">1000-2500元/件（1688定制充气摆件）；草坪空间足够，6-8件分散即可</td></tr>
         </tbody>
       </table>
