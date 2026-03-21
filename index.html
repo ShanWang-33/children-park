@@ -38,8 +38,8 @@ h3{font-size:clamp(1rem,2vw,1.4rem);font-weight:500;color:var(--muted);margin-bo
 .total-number{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
 .total-sub{font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--muted);margin-top:.3em}
 
-.chart-wrap{background:var(--card);border-radius:16px;padding:clamp(1rem,2vw,2rem);border:1px solid var(--border);position:relative;overflow:hidden}
-.chart-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+.chart-wrap{background:var(--card);border-radius:16px;padding:clamp(1rem,2vw,2rem);border:1px solid var(--border);position:relative}
+.chart-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));border-radius:16px 16px 0 0}
 
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2vw,2rem);margin-top:1.5rem}
 @media(max-width:768px){.grid-2{grid-template-columns:1fr}}
