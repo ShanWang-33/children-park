@@ -9,132 +9,143 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a18;--surface:#13132a;--card:#1a1a35;
-  --accent:#ff6b35;--accent2:#ffd166;--accent3:#06d6a0;--accent4:#7b68ee;
-  --text:#f0f0f5;--muted:#8888aa;--border:#2a2a4a;
+  --bg:#fdf6ef;--surface:#fef9f4;--card:#fff;
+  --accent:#d4603a;--accent2:#c8956c;--accent3:#8db580;--accent4:#7b8ec2;
+  --text:#3a2e28;--muted:#9a8a7e;--border:#e8ddd2;
+  --warm-bg:#fef3e8;--warm-border:#f0dcc8;
+  --tag-bg:#fce8dc;--tag-text:#c45a2d;--tag-border:#f0c9ae;
   --font:'Noto Sans SC',system-ui,sans-serif;
 }
 html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
 .deck{display:flex;width:100%;height:100%;transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .slide{min-width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow-y:auto;overflow-x:hidden;padding:clamp(1.2rem,3vw,3rem)}
-.slide-inner{max-width:1200px;width:100%;z-index:2;opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+.slide-inner{max-width:1200px;width:100%;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 .slide.active .slide-inner{opacity:1;transform:translateY(0)}
 
-.bg-glow{position:absolute;border-radius:50%;filter:blur(140px);opacity:.12;z-index:0;pointer-events:none}
-.slide:nth-child(1) .bg-glow{width:600px;height:600px;background:var(--accent);top:-200px;right:-100px}
-.slide:nth-child(2) .bg-glow{width:500px;height:500px;background:var(--accent2);bottom:-150px;left:-100px}
-.slide:nth-child(3) .bg-glow{width:500px;height:500px;background:var(--accent3);top:-100px;left:50%}
-.slide:nth-child(4) .bg-glow{width:500px;height:500px;background:var(--accent4);bottom:-100px;right:-50px}
-.slide:nth-child(5) .bg-glow{width:500px;height:500px;background:var(--accent);top:50%;left:-100px}
-.slide:nth-child(6) .bg-glow{width:500px;height:500px;background:var(--accent2);top:-100px;right:30%}
-.slide:nth-child(7) .bg-glow{width:500px;height:500px;background:var(--accent3);bottom:-100px;left:30%}
-.slide:nth-child(8) .bg-glow{width:500px;height:500px;background:var(--accent4);top:-100px;left:-50px}
-.slide:nth-child(9) .bg-glow{width:500px;height:500px;background:var(--accent);bottom:-150px;right:20%}
+h1{font-size:clamp(1.8rem,5vw,3.4rem);font-weight:900;line-height:1.15;letter-spacing:-.02em;color:var(--text)}
+h2{font-size:clamp(1.2rem,3vw,2.2rem);font-weight:800;margin-bottom:.4em;color:var(--text)}
+h3{font-size:clamp(.85rem,1.6vw,1.15rem);font-weight:500;color:var(--muted);margin-bottom:.8em}
 
-h1{font-size:clamp(1.8rem,5vw,3.6rem);font-weight:900;line-height:1.15;letter-spacing:-.02em}
-h2{font-size:clamp(1.2rem,3vw,2.2rem);font-weight:700;margin-bottom:.5em}
-h3{font-size:clamp(.9rem,1.8vw,1.3rem);font-weight:500;color:var(--muted);margin-bottom:1em}
-.tag{display:inline-block;padding:.25em .8em;border-radius:100px;font-size:.7rem;font-weight:500;background:rgba(255,107,53,.12);color:var(--accent);border:1px solid rgba(255,107,53,.25);margin-bottom:.8em;letter-spacing:.03em;text-transform:uppercase}
+.tag{display:inline-block;padding:.3em .9em;border-radius:100px;font-size:.72rem;font-weight:600;background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--tag-border);margin-bottom:.8em}
+.total-number{font-size:clamp(2rem,5vw,4rem);font-weight:900;color:var(--accent);line-height:1.2}
+.total-sub{font-size:clamp(.82rem,1.3vw,1rem);color:var(--muted);margin-top:.3em}
 
-.total-number{font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
-.total-sub{font-size:clamp(.85rem,1.4vw,1.05rem);color:var(--muted);margin-top:.3em}
+/* Table styles matching screenshot */
+.detail-table{width:100%;border-collapse:collapse;font-size:clamp(.72rem,1vw,.88rem)}
+.detail-table thead th{text-align:left;padding:.7em 1em;color:var(--accent2);font-weight:600;font-size:clamp(.68rem,.9vw,.8rem);border-bottom:2px solid var(--border);white-space:nowrap;position:sticky;top:0;background:var(--surface);z-index:1}
+.detail-table tbody td{padding:.7em 1em;border-bottom:1px solid var(--border);vertical-align:top}
+.detail-table tbody tr:hover td{background:rgba(212,96,58,.03)}
+.detail-table .item-name{font-weight:700;color:var(--text);font-size:clamp(.78rem,1.05vw,.92rem)}
+.detail-table .item-sub{font-size:clamp(.65rem,.8vw,.72rem);color:var(--muted);margin-top:.15em}
+.detail-table .spec-text{color:#6b5d52;font-size:clamp(.7rem,.9vw,.82rem)}
+.detail-table .info-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--warm-bg);color:var(--accent2);font-size:.6rem;font-style:italic;font-weight:700;margin-right:.5em;flex-shrink:0;border:1px solid var(--warm-border)}
+.detail-table .spec-cell{display:flex;align-items:flex-start}
+.detail-table .price-cell{color:var(--accent);font-weight:700;white-space:nowrap;font-size:clamp(.78rem,1vw,.9rem)}
+.detail-table .loc-cell{color:#7a6b5f;white-space:nowrap}
+.table-scroll{overflow-x:auto;overflow-y:auto;max-height:58vh;border-radius:12px;border:1px solid var(--border);background:var(--card)}
 
-.chart-wrap{background:var(--card);border-radius:14px;padding:clamp(.8rem,1.8vw,1.8rem);border:1px solid var(--border);position:relative}
+/* Feasibility note */
+.feasibility{background:var(--warm-bg);border:1px solid var(--warm-border);border-radius:0;padding:.5em 1em;font-size:clamp(.68rem,.85vw,.78rem);color:var(--accent2)}
+.feasibility b{color:var(--accent);font-weight:600}
+.feasibility-inline td{background:var(--warm-bg)!important;border-bottom:1px solid var(--warm-border)!important}
+.feasibility-inline td .f-text{color:var(--accent2);font-size:clamp(.68rem,.85vw,.78rem)}
+.feasibility-inline td .f-text b{color:var(--accent);font-weight:600}
+
+/* Badges */
+.badge{display:inline-block;font-size:.68rem;padding:.2em .6em;border-radius:4px;font-weight:600;letter-spacing:.02em}
+.badge-buy{background:#f0e7df;color:var(--accent)}
+.badge-rent{background:#e4e9f3;color:var(--accent4)}
+.badge-hire{background:#fce8dc;color:#c45a2d}
+
+/* Stat boxes */
+.stat-row{display:flex;gap:clamp(.5rem,1vw,1rem);flex-wrap:wrap;margin:1em 0}
+.stat-box{flex:1;min-width:110px;background:var(--card);border-radius:10px;padding:clamp(.6rem,1vw,1rem);border:1px solid var(--border);text-align:center}
+.stat-box .num{font-size:clamp(1.1rem,2.2vw,1.8rem);font-weight:900;color:var(--accent)}
+.stat-box .label{font-size:clamp(.6rem,.78vw,.7rem);color:var(--muted);margin-top:.15em}
+
+/* Chart wrap */
+.chart-wrap{background:var(--card);border-radius:14px;padding:clamp(.8rem,1.6vw,1.6rem);border:1px solid var(--border);position:relative}
 .chart-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));border-radius:14px 14px 0 0}
-
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.8vw,1.5rem);margin-top:1rem}
-@media(max-width:768px){.grid-2{grid-template-columns:1fr}}
-
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.2vw,1rem);margin-top:1rem}
-@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
-
-.item-card{background:var(--card);border-radius:10px;padding:clamp(.6rem,1.2vw,1rem);border:1px solid var(--border);transition:transform .3s,border-color .3s}
-.item-card:hover{transform:translateY(-2px);border-color:var(--accent)}
-.item-card .name{font-weight:600;font-size:clamp(.78rem,1.1vw,.92rem);margin-bottom:.2em}
-.item-card .price{font-size:clamp(.75rem,.95vw,.85rem);color:var(--accent2);font-weight:700}
-.item-card .desc{font-size:clamp(.65rem,.85vw,.75rem);color:var(--muted);margin-top:.2em;line-height:1.4}
-.item-card .location{font-size:.68rem;color:var(--accent3);margin-top:.15em}
-.item-card .badge{display:inline-block;font-size:.6rem;padding:.1em .5em;border-radius:4px;font-weight:500;margin-left:.4em;vertical-align:middle}
-.badge-buy{background:rgba(6,214,160,.12);color:var(--accent3);border:1px solid rgba(6,214,160,.25)}
-.badge-rent{background:rgba(123,104,238,.12);color:var(--accent4);border:1px solid rgba(123,104,238,.25)}
-.badge-hire{background:rgba(255,209,102,.12);color:var(--accent2);border:1px solid rgba(255,209,102,.25)}
-
-table.detail{width:100%;border-collapse:collapse;font-size:clamp(.65rem,.95vw,.8rem)}
-table.detail th{text-align:left;padding:.5em .7em;background:var(--surface);color:var(--muted);font-weight:500;border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:0;z-index:1}
-table.detail td{padding:.5em .7em;border-bottom:1px solid var(--border);vertical-align:top}
-table.detail tr:hover td{background:rgba(255,107,53,.04)}
-td.price-cell{color:var(--accent2);font-weight:600;white-space:nowrap}
-.table-scroll{overflow-x:auto;overflow-y:auto;max-height:52vh;border-radius:12px;border:1px solid var(--border)}
-
-.stat-row{display:flex;gap:clamp(.6rem,1.2vw,1.2rem);flex-wrap:wrap;margin:1em 0}
-.stat-box{flex:1;min-width:120px;background:var(--card);border-radius:10px;padding:clamp(.6rem,1vw,1rem);border:1px solid var(--border);text-align:center}
-.stat-box .num{font-size:clamp(1.1rem,2.2vw,1.8rem);font-weight:900;color:var(--accent2)}
-.stat-box .label{font-size:clamp(.6rem,.8vw,.72rem);color:var(--muted);margin-top:.15em}
-
-.suggest-card{background:var(--card);border-radius:10px;padding:.8rem 1rem;border-left:3px solid var(--accent3);margin-bottom:.6em}
-.suggest-card .title{font-weight:600;font-size:.82rem;margin-bottom:.2em}
-.suggest-card .reason{font-size:.72rem;color:var(--muted);line-height:1.4}
-
-.zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem;margin-top:.8rem}
-.zone-card{background:var(--card);border-radius:8px;padding:.6rem .8rem;border:1px solid var(--border);font-size:.75rem}
-.zone-card .zone-name{font-weight:700;color:var(--accent2);margin-bottom:.15em;font-size:.8rem}
-.zone-card .zone-ip{color:var(--accent3);font-size:.7rem}
-
-/* Navigation */
-.nav-dots{position:fixed;right:clamp(.8rem,1.5vw,1.5rem);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px;z-index:100}
-.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s;border:none;padding:0}
-.nav-dot.active{background:var(--accent);transform:scale(1.5);box-shadow:0 0 10px rgba(255,107,53,.5)}
-.nav-dot:hover{background:var(--muted)}
-
-.slide-counter{position:fixed;bottom:clamp(.8rem,1.5vw,1.5rem);right:clamp(.8rem,1.5vw,1.5rem);font-size:.75rem;color:var(--muted);z-index:100;font-variant-numeric:tabular-nums}
-.nav-hint{position:fixed;bottom:clamp(.8rem,1.5vw,1.5rem);left:50%;transform:translateX(-50%);font-size:.7rem;color:var(--muted);z-index:100;opacity:1;transition:opacity 1s}
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .5s ease;box-shadow:0 0 8px rgba(255,107,53,.4)}
-
-/* Stagger animations */
-.slide.active .stagger>*{opacity:0;transform:translateY(16px);animation:fadeUp .55s ease forwards}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-.slide.active .stagger>*:nth-child(1){animation-delay:.08s}
-.slide.active .stagger>*:nth-child(2){animation-delay:.16s}
-.slide.active .stagger>*:nth-child(3){animation-delay:.22s}
-.slide.active .stagger>*:nth-child(4){animation-delay:.28s}
-.slide.active .stagger>*:nth-child(5){animation-delay:.34s}
-.slide.active .stagger>*:nth-child(6){animation-delay:.4s}
-.slide.active .stagger>*:nth-child(7){animation-delay:.46s}
-.slide.active .stagger>*:nth-child(8){animation-delay:.52s}
 
 .flex-center{display:flex;align-items:center;gap:clamp(1rem,2.5vw,2.5rem)}
 @media(max-width:900px){.flex-center{flex-direction:column;align-items:stretch}.flex-center .chart-wrap{max-width:100%!important}}
 .flex-center>*{flex:1;min-width:0}
 
-.accent{color:var(--accent)}.accent2{color:var(--accent2)}.accent3{color:var(--accent3)}.accent4{color:var(--accent4)}
+/* Grid layouts */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.5vw,1.2rem);margin-top:1rem}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.5rem,1vw,.8rem);margin-top:1rem}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+
+/* Category cards */
+.cat-card{background:var(--card);border-radius:12px;padding:clamp(.7rem,1.1vw,1.1rem);border:1px solid var(--border);text-align:center;transition:transform .3s}
+.cat-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.cat-card .cat-name{font-size:clamp(.72rem,.92vw,.84rem);font-weight:600;margin-bottom:.2em;color:var(--text)}
+.cat-card .cat-amount{font-size:clamp(.9rem,1.4vw,1.2rem);font-weight:900;color:var(--accent)}
+.cat-card .cat-pct{font-size:.64rem;color:var(--muted);margin-top:.1em}
+
+/* Item cards */
+.item-card{background:var(--card);border-radius:10px;padding:clamp(.5rem,1vw,.8rem) clamp(.6rem,1.2vw,1rem);border:1px solid var(--border);transition:transform .3s}
+.item-card:hover{transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.item-card .name{font-weight:700;font-size:clamp(.75rem,1vw,.88rem);color:var(--text)}
+.item-card .price{font-size:clamp(.72rem,.92vw,.82rem);color:var(--accent);font-weight:700;margin-top:.1em}
+.item-card .desc{font-size:clamp(.64rem,.8vw,.72rem);color:var(--muted);margin-top:.15em;line-height:1.4}
+.item-card .location{font-size:.66rem;color:var(--accent3);margin-top:.1em}
+
+/* Zone cards */
+.zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem;margin-top:.8rem}
+.zone-card{background:var(--card);border-radius:8px;padding:.6rem .8rem;border:1px solid var(--border);font-size:.75rem}
+.zone-card .zone-name{font-weight:700;color:var(--accent);margin-bottom:.1em;font-size:.8rem}
+.zone-card .zone-ip{color:var(--accent3);font-weight:600;font-size:.72rem}
+.zone-card .zone-desc{font-size:.66rem;color:var(--muted);margin-top:.15em;line-height:1.3}
+
+/* Suggest cards */
+.suggest-card{background:var(--card);border-radius:10px;padding:.7rem 1rem;border-left:3px solid var(--accent3);margin-bottom:.5em;border:1px solid var(--border);border-left:3px solid var(--accent3)}
+.suggest-card .title{font-weight:700;font-size:.8rem;color:var(--text);margin-bottom:.15em}
+.suggest-card .reason{font-size:.7rem;color:var(--muted);line-height:1.4}
 
 /* Highlight box */
-.highlight-box{background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(255,209,102,.08));border:1px solid rgba(255,107,53,.2);border-radius:12px;padding:1rem 1.2rem;text-align:center}
-.highlight-box .hl-label{font-size:.75rem;color:var(--muted);margin-bottom:.3em}
-.highlight-box .hl-value{font-size:clamp(1rem,2vw,1.4rem);font-weight:700;color:var(--accent2)}
+.highlight-box{background:var(--warm-bg);border:1px solid var(--warm-border);border-radius:12px;padding:.8rem 1rem}
+.highlight-box .hl-label{font-size:.72rem;color:var(--muted);margin-bottom:.2em}
+.highlight-box .hl-value{font-size:clamp(.85rem,1.2vw,1.1rem);font-weight:700;color:var(--accent)}
 
-/* Category summary cards */
-.cat-card{background:var(--card);border-radius:12px;padding:clamp(.8rem,1.2vw,1.2rem);border:1px solid var(--border);text-align:center;transition:transform .3s}
-.cat-card:hover{transform:translateY(-3px)}
-.cat-card .cat-icon{font-size:1.6rem;margin-bottom:.3em}
-.cat-card .cat-name{font-size:clamp(.72rem,.95vw,.85rem);font-weight:600;margin-bottom:.2em}
-.cat-card .cat-amount{font-size:clamp(.9rem,1.4vw,1.2rem);font-weight:900;color:var(--accent2)}
-.cat-card .cat-pct{font-size:.65rem;color:var(--muted);margin-top:.1em}
-
-/* Section header with line */
-.section-header{display:flex;align-items:center;gap:.8em;margin-bottom:.8em}
+.section-header{display:flex;align-items:center;gap:.6em;margin-bottom:.6em}
 .section-header::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-header h3{margin:0;white-space:nowrap}
+
+/* Navigation */
+.nav-dots{position:fixed;right:clamp(.6rem,1.2vw,1.2rem);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px;z-index:100}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s;border:none;padding:0}
+.nav-dot.active{background:var(--accent);transform:scale(1.5);box-shadow:0 0 8px rgba(212,96,58,.4)}
+.nav-dot:hover{background:var(--muted)}
+.slide-counter{position:fixed;bottom:clamp(.6rem,1.2vw,1.2rem);right:clamp(.6rem,1.2vw,1.2rem);font-size:.72rem;color:var(--muted);z-index:100;font-variant-numeric:tabular-nums;background:var(--card);padding:.2em .6em;border-radius:6px;border:1px solid var(--border)}
+.nav-hint{position:fixed;bottom:clamp(.6rem,1.2vw,1.2rem);left:50%;transform:translateX(-50%);font-size:.68rem;color:var(--muted);z-index:100;opacity:1;transition:opacity 1s}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));z-index:200;transition:width .5s ease}
+
+/* Animations */
+.slide.active .stagger>*{opacity:0;transform:translateY(14px);animation:fadeUp .5s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.slide.active .stagger>*:nth-child(1){animation-delay:.06s}
+.slide.active .stagger>*:nth-child(2){animation-delay:.12s}
+.slide.active .stagger>*:nth-child(3){animation-delay:.18s}
+.slide.active .stagger>*:nth-child(4){animation-delay:.24s}
+.slide.active .stagger>*:nth-child(5){animation-delay:.3s}
+.slide.active .stagger>*:nth-child(6){animation-delay:.36s}
+.slide.active .stagger>*:nth-child(7){animation-delay:.42s}
+.slide.active .stagger>*:nth-child(8){animation-delay:.48s}
+
+.accent{color:var(--accent)}.accent2{color:var(--accent2)}.accent3{color:var(--accent3)}
 
 @media(max-width:600px){
-  .slide{padding:clamp(.8rem,3vw,1.5rem);padding-top:2rem;padding-bottom:3rem}
-  .stat-row{gap:.4rem}
-  .stat-box{min-width:70px;padding:.5rem}
-  .zone-grid{grid-template-columns:1fr 1fr}
-  .cat-grid{grid-template-columns:repeat(2,1fr)!important}
-  .nav-dots{right:.5rem;gap:5px}
+  .slide{padding:clamp(.8rem,3vw,1.5rem);padding-top:1.5rem;padding-bottom:2.5rem}
+  .stat-row{gap:.3rem}
+  .stat-box{min-width:70px;padding:.4rem .3rem}
+  .nav-dots{right:.4rem;gap:5px}
   .nav-dot{width:6px;height:6px}
-  table.detail{font-size:.68rem}
-  table.detail th,table.detail td{padding:.4em .5em}
+  .zone-grid{grid-template-columns:1fr 1fr}
+  .cat-grid-wrap{grid-template-columns:repeat(2,1fr)!important}
+  .detail-table{font-size:.7rem}
+  .detail-table thead th,.detail-table tbody td{padding:.4em .5em}
 }
 </style>
 </head>
@@ -149,7 +160,6 @@ td.price-cell{color:var(--accent2);font-weight:600;white-space:nowrap}
 
 <!-- SLIDE 1: 封面 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
     <div class="tag">2026 · 创意预算方案</div>
     <h1>深圳市儿童公园<br><span class="accent">IP联动方案</span></h1>
@@ -164,16 +174,15 @@ td.price-cell{color:var(--accent2);font-weight:600;white-space:nowrap}
       <div class="stat-box"><div class="num">6.1</div><div class="label">开园日</div></div>
       <div class="stat-box"><div class="num">3个月</div><div class="label">运营周期</div></div>
     </div>
-    <div style="font-size:.7rem;color:var(--muted);margin-top:.8em;line-height:1.5">价格参考淘宝 / 1688 / 天猫 / 深圳本地供应商报价，实际以采购合同为准</div>
+    <div style="font-size:.68rem;color:var(--muted);margin-top:.6em;line-height:1.5">价格参考淘宝 / 1688 / 天猫 / 深圳本地供应商报价，实际以采购合同为准</div>
   </div>
 </section>
 
 <!-- SLIDE 2: 预算总览 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
     <div class="tag">预算总览</div>
-    <h2>各类别预算分布 · 总计 ¥410,500</h2>
+    <h2>各类别预算分布 <span style="font-size:.5em;font-weight:500;color:var(--muted)">总计 ¥410,500</span></h2>
     <div class="flex-center">
       <div class="chart-wrap" style="max-width:400px"><canvas id="pieChart" height="300"></canvas></div>
       <div class="chart-wrap" style="flex:1.2"><canvas id="barChart" height="300"></canvas></div>
@@ -183,180 +192,407 @@ td.price-cell{color:var(--accent2);font-weight:600;white-space:nowrap}
 
 <!-- SLIDE 3: 七大类概览 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
     <div class="tag">预算构成</div>
     <h2>七大预算类别一览</h2>
-    <div class="cat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.5rem,1vw,.8rem);margin-top:1rem">
-      <div class="cat-card" style="border-bottom:3px solid #ff6b35"><div class="cat-name">麦兜IP核心装置</div><div class="cat-amount">¥146,500</div><div class="cat-pct">占比 35.7%</div></div>
-      <div class="cat-card" style="border-bottom:3px solid #ffd166"><div class="cat-name">全园IP视觉系统</div><div class="cat-amount">¥29,500</div><div class="cat-pct">占比 7.2%</div></div>
-      <div class="cat-card" style="border-bottom:3px solid #06d6a0"><div class="cat-name">自然三部曲装置</div><div class="cat-amount">¥27,600</div><div class="cat-pct">占比 6.7%</div></div>
-      <div class="cat-card" style="border-bottom:3px solid #7b68ee"><div class="cat-name">6.1开园仪式</div><div class="cat-amount">¥120,500</div><div class="cat-pct">占比 29.4%</div></div>
-      <div class="cat-card" style="border-bottom:3px solid #ef476f"><div class="cat-name">园区工作人员</div><div class="cat-amount">¥24,800</div><div class="cat-pct">占比 6.0%</div></div>
-      <div class="cat-card" style="border-bottom:3px solid #118ab2"><div class="cat-name">运营辅助</div><div class="cat-amount">¥33,600</div><div class="cat-pct">占比 8.2%</div></div>
-      <div class="cat-card" style="border-bottom:3px solid #073b4c"><div class="cat-name">传播推广</div><div class="cat-amount">¥28,000</div><div class="cat-pct">占比 6.8%</div></div>
-      <div class="highlight-box" style="display:flex;flex-direction:column;justify-content:center"><div class="hl-label">IP授权费</div><div class="hl-value" style="font-size:clamp(.8rem,1.2vw,1rem)">需与版权方单独谈判</div></div>
+    <div class="cat-grid-wrap" style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.4rem,.9vw,.7rem);margin-top:1rem">
+      <div class="cat-card" style="border-bottom:3px solid var(--accent)"><div class="cat-name">麦兜IP核心装置</div><div class="cat-amount">¥146,500</div><div class="cat-pct">占比 35.7%</div></div>
+      <div class="cat-card" style="border-bottom:3px solid var(--accent2)"><div class="cat-name">全园IP视觉系统</div><div class="cat-amount">¥29,500</div><div class="cat-pct">占比 7.2%</div></div>
+      <div class="cat-card" style="border-bottom:3px solid var(--accent3)"><div class="cat-name">自然三部曲装置</div><div class="cat-amount">¥27,600</div><div class="cat-pct">占比 6.7%</div></div>
+      <div class="cat-card" style="border-bottom:3px solid var(--accent4)"><div class="cat-name">6.1开园仪式</div><div class="cat-amount">¥120,500</div><div class="cat-pct">占比 29.4%</div></div>
+      <div class="cat-card" style="border-bottom:3px solid #c97b84"><div class="cat-name">园区工作人员</div><div class="cat-amount">¥24,800</div><div class="cat-pct">占比 6.0%</div></div>
+      <div class="cat-card" style="border-bottom:3px solid #7ab5a0"><div class="cat-name">运营辅助</div><div class="cat-amount">¥33,600</div><div class="cat-pct">占比 8.2%</div></div>
+      <div class="cat-card" style="border-bottom:3px solid #b89a6a"><div class="cat-name">传播推广</div><div class="cat-amount">¥28,000</div><div class="cat-pct">占比 6.8%</div></div>
+      <div class="highlight-box" style="display:flex;flex-direction:column;justify-content:center;text-align:center"><div class="hl-label">IP授权费</div><div class="hl-value" style="font-size:clamp(.72rem,1vw,.88rem)">需与版权方单独谈判</div></div>
     </div>
-    <div style="margin-top:1rem;font-size:.72rem;color:var(--muted);text-align:center">核心IP装置 + 开园仪式合计占预算 65%，为方案最主要投入</div>
+    <div style="margin-top:.8rem;font-size:.7rem;color:var(--muted);text-align:center">核心IP装置 + 开园仪式合计占预算 65%，为方案最主要投入</div>
   </div>
 </section>
 
 <!-- SLIDE 4: 麦兜IP核心装置 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
-    <div class="tag">核心 IP</div>
-    <h2>麦兜IP核心装置 <span class="accent2" style="font-size:.55em">¥146,500</span></h2>
-    <div class="table-scroll">
-      <table class="detail">
-        <thead><tr><th>项目</th><th>规格说明</th><th>位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
+    <div class="tag">核心IP · 预算占比最大</div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <h2 style="margin-bottom:0">麦兜IP核心装置</h2>
+      <div class="total-number" style="font-size:clamp(1.4rem,3vw,2.4rem)">¥146,500</div>
+    </div>
+    <div class="table-scroll" style="margin-top:.8rem">
+      <table class="detail-table">
+        <thead><tr><th>项目</th><th>规格说明</th><th>园区位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
         <tbody>
-          <tr><td>巨型充气麦兜（8-10米）</td><td>定制超轻TPU材料，含电动气泵、地锚套件</td><td>北门入口</td><td>1套</td><td class="price-cell">¥12,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>麦兜全身玩偶套装</td><td>2套麦兜+1套麦太，商业级拉绒/牛津布面料</td><td>全园巡游</td><td>3套</td><td class="price-cell">¥10,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>麦兜人偶扮演兼职</td><td>开园日+3个月周末共25天，300元/人/日</td><td>全园巡游</td><td>3人</td><td class="price-cell">¥22,500</td><td><span class="badge badge-hire">招募</span></td></tr>
-          <tr><td>麦兜花车（电瓶车改装）</td><td>IP彩色贴膜+PVC装饰板+LED灯条+车顶旗</td><td>全园主路</td><td>2辆</td><td class="price-cell">¥20,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>麦兜移动餐车布置</td><td>餐车加装IP贴膜+招牌+车顶摆件，港式茶餐厅风格</td><td>活动草坪区</td><td>1辆</td><td class="price-cell">¥45,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>春田花花手工坊</td><td>折叠桌椅×10+IP背景板×2+材料包200份</td><td>洞洞家园</td><td>1处</td><td class="price-cell">¥8,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>甲马版画工具套装</td><td>定制木刻模版3-5款+油墨+拓印工具包</td><td>亲子艺术中心</td><td>3-5款</td><td class="price-cell">¥3,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>IP衍生品商品</td><td>迷你气球、贴纸包、钥匙扣/冰箱贴</td><td>北门</td><td>2000套</td><td class="price-cell">¥15,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>粤语等级挑战区</td><td>防水展板×10+铝合金展架+音频播放器×2</td><td>亲子乐园区</td><td>1处</td><td class="price-cell">¥5,000</td><td><span class="badge badge-buy">采购</span></td></tr>
-          <tr><td>麦兜语录气球装置</td><td>定制PVC充气文字+麦兜造型，高1-1.5m</td><td>活动草坪区</td><td>6-8件</td><td class="price-cell">¥6,000</td><td><span class="badge badge-buy">采购</span></td></tr>
+          <tr>
+            <td><div class="item-name">巨型充气麦兜</div><div class="item-sub">8-10米高，入口视觉锚点</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">定制超轻TPU材料，含电动气泵、地锚</span></div></td>
+            <td class="loc-cell">北门入口</td><td>1套</td>
+            <td class="price-cell">¥12,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">全身玩偶套装</div><div class="item-sub">2麦兜+1麦太</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">商业级定制玩偶服，拉绒/牛津布面料</span></div></td>
+            <td class="loc-cell">全园巡游</td><td>3套</td>
+            <td class="price-cell">¥10,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>因涉及开模定制，暂无租赁；周末常态化巡游时比租赁更划算；建议优先采购</span></td></tr>
+          <tr>
+            <td><div class="item-name">人偶扮演兼职</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">25天 × 300元/人/日（开园日+3个月每周末）</span></div></td>
+            <td class="loc-cell">全园巡游</td><td>3人</td>
+            <td class="price-cell">¥22,500</td><td><span class="badge badge-hire">招募</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">麦兜花车</div><div class="item-sub">电瓶观光车改装</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">IP彩色贴膜+PVC装饰板+LED灯条</span></div></td>
+            <td class="loc-cell">全园主路</td><td>2辆</td>
+            <td class="price-cell">¥20,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>贴膜200-400元/㎡，全车约15-25㎡；装饰件淘宝采购；园区路宽3-4米，电瓶车可正常通行</span></td></tr>
+          <tr>
+            <td><div class="item-name">移动餐车布置</div><div class="item-sub">港式茶餐厅风格</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">定制餐车加装IP贴膜+招牌+摆件</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>1辆</td>
+            <td class="price-cell">¥45,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>车内基础开关、照明、水路、电路插座；麦兜主题港式茶餐厅风格</span></td></tr>
+          <tr>
+            <td><div class="item-name">春田花花手工坊</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">折叠桌椅×10+IP背景板+材料包200份</span></div></td>
+            <td class="loc-cell">洞洞家园</td><td>1处</td>
+            <td class="price-cell">¥8,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>材料包补货30-60元/份；与园区分成；室内场地已有，不计租金</span></td></tr>
+          <tr>
+            <td><div class="item-name">甲马版画工具套装</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">定制木刻模版3-5款+油墨+拓印工具包</span></div></td>
+            <td class="loc-cell">亲子艺术中心</td><td>3-5款</td>
+            <td class="price-cell">¥3,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">IP衍生品商品</div><div class="item-sub">迷你气球/贴纸/钥匙扣</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">首批备1个月量的1/3，月度补货</span></div></td>
+            <td class="loc-cell">北门</td><td>2000套</td>
+            <td class="price-cell">¥15,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>预计3个月总客流约10万人次（日均3000-4000），销售周期3个月建议月度补货；可与园区参与分成</span></td></tr>
+          <tr>
+            <td><div class="item-name">粤语等级挑战区</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">防水展板×10+铝合金展架+音频播放器×2</span></div></td>
+            <td class="loc-cell">亲子乐园区</td><td>1处</td>
+            <td class="price-cell">¥5,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">麦兜语录气球装置</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">定制PVC充气文字+造型，高1-1.5m</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>6-8件</td>
+            <td class="price-cell">¥6,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>1000-2500元/件（1688定制充气摆件）；草坪空间足够，6-8件分散即可</span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 5: 全园IP视觉 + 自然三部曲 -->
+<!-- SLIDE 5: 全园IP视觉系统 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
-    <div class="tag">视觉系统 & 自然三部曲</div>
-    <div class="grid-2">
-      <div>
-        <h2 style="font-size:clamp(1rem,1.8vw,1.5rem)">全园IP视觉系统 <span class="accent2" style="font-size:.7em">¥29,500</span></h2>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">大型IP打卡背景板 ×5-8块</div><div class="price">¥7,500</div><div class="desc">2×2.4m 户外防水写真喷绘+铝合金框架</div><div class="location">北门/草坪/森林/戏水/无动力区</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">中小型IP立牌/导视牌 ×15-20个</div><div class="price">¥4,500</div><div class="desc">A1防水亚克力+不锈钢插地支架，双语</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">地面IP彩绘/脚印印绘 80-120㎡</div><div class="price">¥8,000</div><div class="desc">户外防滑彩色地面漆，沿主动线铺设</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">围栏/器械贴膜 100-150㎡</div><div class="price">¥5,000</div><div class="desc">户外防晒写真贴膜，覆盖核心设施</div></div>
-        <div class="item-card"><div class="name">主题旗帜/吊旗 ×30-50面</div><div class="price">¥4,500</div><div class="desc">双面防水旗帜60×160cm，含插地架</div></div>
-      </div>
-      <div>
-        <h2 style="font-size:clamp(1rem,1.8vw,1.5rem)">自然三部曲装置 <span class="accent3" style="font-size:.7em">¥27,600</span></h2>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">星空露天电影（设备+场地）</div><div class="price">¥3,500</div><div class="desc">10000流明投影+150寸幕布+充气沙发+灯串</div><div class="location">活动草坪区 · 租赁/次</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">三部曲主题充气装置 ×3组</div><div class="price">¥6,000</div><div class="desc">森林/海洋/狼三主题，高1.5-2.5m</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">灵之伪装·错觉彩绘 20-30㎡</div><div class="price">¥6,000</div><div class="desc">专业错视艺术画师，高传播价值</div><div class="location">森林探索区大树旁</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">狼之眼低视角探索径 8-10套</div><div class="price">¥1,600</div><div class="desc">亚克力彩色滤光管，儿童视平线高度</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">自然地贴+森林布幔+精灵彩蛋</div><div class="price">¥7,500</div><div class="desc">地贴30-50组+布幔20-25件+彩蛋30-40个</div></div>
-        <div class="item-card"><div class="name">城市自然绘本活动物料</div><div class="price">¥3,000</div><div class="desc">海报+DM+荣誉证书+获奖奖品</div></div>
-      </div>
+    <div class="tag">视觉系统</div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <h2 style="margin-bottom:0">全园IP视觉系统</h2>
+      <div class="total-number" style="font-size:clamp(1.4rem,3vw,2.4rem)">¥29,500</div>
+    </div>
+    <div class="table-scroll" style="margin-top:.8rem">
+      <table class="detail-table">
+        <thead><tr><th>项目</th><th>规格说明</th><th>园区位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="item-name">大型IP打卡背景板</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">2×2.4m 户外防水写真喷绘+铝合金边框立架</span></div></td>
+            <td class="loc-cell">5个高流量区</td><td>5-8块</td>
+            <td class="price-cell">¥7,500</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>1500-3000元/套（铝框+写真）；优先覆盖北门/草坪/森林/戏水/无动力区5个高停留区</span></td></tr>
+          <tr>
+            <td><div class="item-name">中小型IP立牌/导视牌</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">A1防水亚克力+不锈钢插地支架，双语</span></div></td>
+            <td class="loc-cell">各区入口及主路</td><td>15-20个</td>
+            <td class="price-cell">¥4,500</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>300-700元/个（淘宝定制）；兼具导视功能；园区集中，15-20个可覆盖全园</span></td></tr>
+          <tr>
+            <td><div class="item-name">地面IP彩绘/脚印印绘</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">户外防滑彩色地面漆，IP图案</span></div></td>
+            <td class="loc-cell">北门→草坪→森林→戏水主动线</td><td>80-120㎡</td>
+            <td class="price-cell">¥8,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>100-150元/㎡（含人工）；沿主动线集中铺设，点到点连通效果最佳</span></td></tr>
+          <tr>
+            <td><div class="item-name">围栏/器械贴膜</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">户外防晒写真贴膜，覆盖核心设施表面</span></div></td>
+            <td class="loc-cell">无动力区、戏水区</td><td>100-150㎡</td>
+            <td class="price-cell">¥5,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">主题旗帜/吊旗</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">双面防水旗帜60×160cm，含插地架</span></div></td>
+            <td class="loc-cell">各区入口及主路</td><td>30-50面</td>
+            <td class="price-cell">¥4,500</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>150-300元/面；园区面积不大，30-50面足以覆盖，不必过多；50-100元/㎡贴膜集中在儿童接触最多的设施</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 6: 6.1开园仪式 -->
+<!-- SLIDE 6: 自然三部曲装置 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
-    <div class="tag">开园仪式</div>
-    <h2>6.1 开园仪式 <span class="accent" style="font-size:.55em">¥120,500 · 占总预算29.4%</span></h2>
-    <div class="flex-center">
-      <div class="chart-wrap"><canvas id="ceremonyChart" height="260"></canvas></div>
-      <div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">儿童合唱团+歌手刘莉旻出场费 <span class="badge badge-hire">暂定</span></div><div class="price">¥50,000</div><div class="desc">含彩排1次，演出约10分钟 — 实际以演出公司报价为准</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">AI合唱团技术方案</div><div class="price">¥15,000</div><div class="desc">AI音效+声画同步+现场技术执行（含前期制作）</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">友谊树互动灯光装置</div><div class="price">¥15,000</div><div class="desc">可触摸感应LED灯光联动，粤港澳友谊树节点</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">舞台搭建+音响+LED屏 <span class="badge badge-rent">租赁</span></div><div class="price">¥13,000</div><div class="desc">8×5m铝合金舞台+P4 LED屏3×8m+线阵音响</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">深港探险家联名护照 2000-3000本</div><div class="price">¥10,000</div><div class="desc">手账护照册32P，特种纸+精装封面，首批限定版</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">手工大赛场地+材料包300份</div><div class="price">¥7,500</div><div class="desc">折叠桌椅×20+遮阳棚×4+材料包</div></div>
-        <div class="item-card" style="margin-bottom:.5rem"><div class="name">演出策划+现场执行+北门拱门</div><div class="price">¥10,000</div><div class="desc">活动导演+编导+舞台监督+气球造型拱门</div></div>
-      </div>
+    <div class="tag">自然三部曲</div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <h2 style="margin-bottom:0">自然三部曲装置</h2>
+      <div class="total-number" style="font-size:clamp(1.4rem,3vw,2.4rem)">¥27,600</div>
+    </div>
+    <div class="table-scroll" style="margin-top:.8rem">
+      <table class="detail-table">
+        <thead><tr><th>项目</th><th>规格说明</th><th>园区位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="item-name">星空露天电影设备</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">10000流明投影+150寸幕布+功放音响</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>1次</td>
+            <td class="price-cell">¥1,500</td><td><span class="badge badge-rent">租赁</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">星空电影场地布置</div><div class="item-sub">每次</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">充气懒人沙发50个+灯串氛围灯+围栏</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>1次</td>
+            <td class="price-cell">¥2,000</td><td><span class="badge badge-rent">租赁</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>本地AV租赁市场价；若全暑期放映4次以上可考虑采购（约3-5万）；灯串可购买后多次复用</span></td></tr>
+          <tr>
+            <td><div class="item-name">三部曲主题充气装置</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">森林/海洋/狼三主题造型，高1.5-2.5m</span></div></td>
+            <td class="loc-cell">科普/湿地/森林区</td><td>3组</td>
+            <td class="price-cell">¥6,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>3000-8000元/组（1688）；每区1组，与麦兜北门装置形成南北两个视觉区</span></td></tr>
+          <tr>
+            <td><div class="item-name">自然主题地贴</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">防滑PVC地贴，自然主题图案</span></div></td>
+            <td class="loc-cell">东入口→湿地→森林</td><td>30-50组</td>
+            <td class="price-cell">¥3,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">森林旗帜/布幔/风动装置</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">定制印刷布幔+竹制支架，模拟爱尔兰森林</span></div></td>
+            <td class="loc-cell">森林探索区</td><td>20-25件</td>
+            <td class="price-cell">¥3,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>200-400元/件；利用现有树木悬挂，不需额外支架，降低成本</span></td></tr>
+          <tr>
+            <td><div class="item-name">自然精灵隐藏彩蛋</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">防水亚克力/木质小型装置，固定于草丛/树根</span></div></td>
+            <td class="loc-cell">全园草丛/花坛</td><td>30-40个</td>
+            <td class="price-cell">¥1,500</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">狼之眼低视角探索径</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">亚克力彩色滤光管，儿童视平线高度</span></div></td>
+            <td class="loc-cell">森林探索区步道</td><td>8-10套</td>
+            <td class="price-cell">¥1,600</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>200-500元/套；简单安装，成本低，互动性强；50-200元/个彩蛋在小园区内30-40个已能制造惊喜感</span></td></tr>
+          <tr>
+            <td><div class="item-name">灵之伪装·错觉彩绘</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">专业错视艺术画师+地面狼爪标记点</span></div></td>
+            <td class="loc-cell">森林探索区大树旁</td><td>约20-30㎡</td>
+            <td class="price-cell">¥6,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>300-600元/㎡（专业错觉壁画画师）；高传播价值；面积不需大，精准即可</span></td></tr>
+          <tr>
+            <td><div class="item-name">城市自然绘本活动物料</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">海报+DM单页+荣誉证书（烫金）+5名获奖奖品</span></div></td>
+            <td class="loc-cell">全市学校/园区</td><td>1批</td>
+            <td class="price-cell">¥3,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>120种植物绘本征集活动配套；印刷品为主，成本可控</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 7: 人员+运营+传播 -->
+<!-- SLIDE 7: 6.1开园仪式 -->
 <section class="slide">
-  <div class="bg-glow"></div>
+  <div class="slide-inner stagger">
+    <div class="tag">开园仪式 · 占预算29.4%</div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <h2 style="margin-bottom:0">6.1 开园仪式</h2>
+      <div class="total-number" style="font-size:clamp(1.4rem,3vw,2.4rem)">¥120,500</div>
+    </div>
+    <div class="table-scroll" style="margin-top:.8rem">
+      <table class="detail-table">
+        <thead><tr><th>项目</th><th>规格说明</th><th>园区位置</th><th>数量</th><th>预算</th><th>方式</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="item-name">舞台搭建</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">户外铝合金舞台8×5m，含搭建+折叠椅100</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>1场</td>
+            <td class="price-cell">¥5,000</td><td><span class="badge badge-rent">租赁</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">专业音响系统</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">线阵音响+调音台+无线话筒6支，含调音师</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>1套</td>
+            <td class="price-cell">¥3,000</td><td><span class="badge badge-rent">租赁</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">LED显示屏</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">P4户外LED屏3×8m+基础舞台灯套装</span></div></td>
+            <td class="loc-cell">舞台</td><td>1套</td>
+            <td class="price-cell">¥5,000</td><td><span class="badge badge-rent">租赁</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>深圳本地租赁市场价；8×5m中型舞台，儿童活动无需过大；户外白天需高亮屏≥5000nit</span></td></tr>
+          <tr>
+            <td><div class="item-name">儿童合唱团+歌手刘莉旻</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">含彩排1次，演出约10分钟</span></div></td>
+            <td class="loc-cell">舞台</td><td>1场</td>
+            <td class="price-cell">¥50,000</td><td><span class="badge badge-hire">暂定</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>★ 暂定估算，实际以演出公司报价为准；公益/政府活动可协商</span></td></tr>
+          <tr>
+            <td><div class="item-name">AI合唱团技术方案</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">AI音效+声画同步软件+现场技术执行（含前期制作）</span></div></td>
+            <td class="loc-cell">舞台</td><td>1项</td>
+            <td class="price-cell">¥15,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>含内容制作；可联系深圳本地科技公司（如深大/南科大创业团队）合作降本</span></td></tr>
+          <tr>
+            <td><div class="item-name">演出策划及现场执行</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">活动导演+编导+舞台监督+执行人员（含1次彩排）</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>1项</td>
+            <td class="price-cell">¥5,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr>
+            <td><div class="item-name">手工大赛场地+材料包</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">折叠桌椅×20+遮阳棚4×4m×4顶+材料包300份</span></div></td>
+            <td class="loc-cell">活动草坪区</td><td>300份</td>
+            <td class="price-cell">¥7,500</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>25-55元/份材料包（淘宝）；桌椅棚后续可复用；建议分时段每批50组</span></td></tr>
+          <tr>
+            <td><div class="item-name">友谊树互动灯光装置</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">可触摸感应LED灯光联动装置，软件定制</span></div></td>
+            <td class="loc-cell">粤港澳友谊树</td><td>1套</td>
+            <td class="price-cell">¥15,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>可简化为灯光投影方案（约¥8,000-15,000）；建议提前确认树木周边电源</span></td></tr>
+          <tr>
+            <td><div class="item-name">深港探险家联名护照</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">手账护照册32P，特种纸+精装封面，含集章页</span></div></td>
+            <td class="loc-cell">北门游客服务中心</td><td>2000-3000本</td>
+            <td class="price-cell">¥10,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+          <tr class="feasibility-inline"><td colspan="6"><span class="f-text"><b>可行性说明：</b>5-10元/本（1688印刷）；开园限定版，首批2000本视销量补货，可与园区参与分成</span></td></tr>
+          <tr>
+            <td><div class="item-name">「时空洞口」北门入口拱门</div></td>
+            <td><div class="spec-cell"><span class="info-icon">i</span><span class="spec-text">气球造型拱门+IP挂件装饰，可拆卸</span></div></td>
+            <td class="loc-cell">北门入口</td><td>1处</td>
+            <td class="price-cell">¥5,000</td><td><span class="badge badge-buy">采购</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: 人员+运营+传播 -->
+<section class="slide">
   <div class="slide-inner stagger">
     <div class="tag">运营与传播</div>
-    <h2>人员 · 运营 · 传播推广 <span class="accent2" style="font-size:.55em">合计 ¥86,400</span></h2>
+    <h2>人员 · 运营 · 传播推广 <span style="font-size:.5em;font-weight:500;color:var(--muted)">合计 ¥86,400</span></h2>
     <div class="grid-3">
       <div class="chart-wrap">
-        <h3 style="text-align:center;margin-bottom:.6em;font-size:clamp(.8rem,1.2vw,1rem)">园区工作人员 · ¥24,800</h3>
+        <h3 style="text-align:center;margin-bottom:.5em;font-size:clamp(.78rem,1.1vw,.95rem);color:var(--accent)">园区工作人员 · ¥24,800</h3>
         <div class="item-card" style="margin-bottom:.4rem"><div class="name">花车司机 ×2</div><div class="price">¥15,600</div><div class="desc">200-300元/天，26个工作日/月</div></div>
         <div class="item-card" style="margin-bottom:.4rem"><div class="name">手工坊老师 ×3</div><div class="price">¥7,800</div><div class="desc">300-400元/天，26个工作日/月</div></div>
-        <div class="item-card" style="margin-bottom:.4rem"><div class="name">粤语挑战主持 ×2</div><div class="price">¥600</div><div class="desc">开园日，约1小时/场</div></div>
-        <div class="item-card"><div class="name">开园仪式主持人 ×1</div><div class="price">¥800</div><div class="desc">开园日，约1小时</div></div>
+        <div class="item-card" style="margin-bottom:.4rem"><div class="name">粤语挑战主持 ×2</div><div class="price">¥600</div><div class="desc">开园日，约1小时/场，1-2场</div></div>
+        <div class="item-card"><div class="name">开园仪式主持人</div><div class="price">¥800</div><div class="desc">开园日，约1小时</div></div>
       </div>
       <div class="chart-wrap">
-        <h3 style="text-align:center;margin-bottom:.6em;font-size:clamp(.8rem,1.2vw,1rem)">运营辅助 · ¥33,600</h3>
+        <h3 style="text-align:center;margin-bottom:.5em;font-size:clamp(.78rem,1.1vw,.95rem);color:var(--accent)">运营辅助 · ¥33,600</h3>
         <div class="item-card" style="margin-bottom:.4rem"><div class="name">工作人员餐费补</div><div class="price">¥15,600</div><div class="desc">8-10人×26天×60元/人/天</div></div>
         <div class="item-card" style="margin-bottom:.4rem"><div class="name">物流/运费/搬运</div><div class="price">¥10,000</div><div class="desc">大型道具入场，1500-4000元/次×2-3次</div></div>
         <div class="item-card" style="margin-bottom:.4rem"><div class="name">物料装置安装调试</div><div class="price">¥5,000</div></div>
-        <div class="item-card" style="margin-bottom:.4rem"><div class="name">交通费</div><div class="price">¥2,000</div></div>
-        <div class="item-card"><div class="name">水费/打印费（3个月）</div><div class="price">¥1,000</div></div>
+        <div class="item-card" style="margin-bottom:.4rem"><div class="name">交通费</div><div class="price">¥2,000</div><div class="desc">采购/验货/供应商跑动+开园日交通</div></div>
+        <div class="item-card"><div class="name">水费/打印费（3个月）</div><div class="price">¥1,000</div><div class="desc">100-300元/月×3月</div></div>
       </div>
       <div class="chart-wrap">
-        <h3 style="text-align:center;margin-bottom:.6em;font-size:clamp(.8rem,1.2vw,1rem)">传播推广 · ¥28,000</h3>
-        <div class="item-card" style="margin-bottom:.4rem"><div class="name">深港亲子KOL ×8-12位</div><div class="price">¥8,000</div><div class="desc">小红书/抖音 1-5万粉丝小微博主</div></div>
+        <h3 style="text-align:center;margin-bottom:.5em;font-size:clamp(.78rem,1.1vw,.95rem);color:var(--accent)">传播推广 · ¥28,000</h3>
+        <div class="item-card" style="margin-bottom:.4rem"><div class="name">深港亲子KOL ×8-12位</div><div class="price">¥8,000</div><div class="desc">1-5万粉丝小微博主，大湾区家庭向</div></div>
         <div class="item-card" style="margin-bottom:.4rem"><div class="name">3个月内容运营</div><div class="price">¥12,000</div><div class="desc">话题策划+图文视频月均4-6条+社群运营</div></div>
-        <div class="item-card" style="margin-bottom:.4rem"><div class="name">开园日摄影+摄像</div><div class="price">¥5,000</div><div class="desc">摄影+摄像各1人，全天，含3分钟短片</div></div>
-        <div class="item-card"><div class="name">大咖导赏沙龙</div><div class="price">¥3,000</div><div class="desc">布置+音响+投影+茶歇（30-50席）</div></div>
+        <div class="item-card" style="margin-bottom:.4rem"><div class="name">开园日摄影+摄像</div><div class="price">¥5,000</div><div class="desc">各1人全天，含后期3分钟短片</div></div>
+        <div class="item-card"><div class="name">大咖导赏沙龙</div><div class="price">¥3,000</div><div class="desc">亲子艺术中心布置+音响+投影+茶歇</div></div>
+        <div style="margin-top:.5rem;padding:.5rem .7rem;background:var(--warm-bg);border-radius:8px;border:1px solid var(--warm-border)">
+          <div style="font-size:.68rem;color:var(--accent2);line-height:1.4"><b>可行性说明：</b>1000-3000元/位KOL（小微博主市场价）；精准触达目标客群；部分可用门票/周边置换</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 8: 园区布局 -->
+<!-- SLIDE 9: 园区布局 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
     <div class="tag">园区布局</div>
     <h2>各区域 IP 部署策略</h2>
-    <h3>根据场地特征 · 精准匹配IP主题 · 形成南北两条主动线</h3>
+    <h3>根据场地特征精准匹配IP主题 · 形成南北两条主动线</h3>
     <div class="zone-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
-      <div class="zone-card" style="border-left:3px solid var(--accent)"><div class="zone-name">北门入口区</div><div class="zone-ip">麦兜主阵地</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">进园第一视觉点 · 巨型充气+拱门形成强IP印记</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent)"><div class="zone-name">活动草坪区</div><div class="zone-ip">麦兜+开园仪式</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">面积最大 · 舞台/巡游/手工大赛/语录气球/星空电影</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent)"><div class="zone-name">亲子乐园 / 洞洞家园</div><div class="zone-ip">麦兜手工坊</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">室内场地 · 精细手工活动 · 受天气影响小</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">森林探索区</div><div class="zone-ip">狼行者 · 自然三部曲</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">天然契合神秘森林 · 错觉彩绘/探索径效果最佳</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">自然科普区</div><div class="zone-ip">凯尔经 · 自然三部曲</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">植物展示区域 · 配合120种植物绘本活动</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">湿地生境区</div><div class="zone-ip">海洋之歌 · 三部曲</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">水边场景适合海洋主题 · 设置精灵彩蛋</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent2)"><div class="zone-name">戏水游戏区</div><div class="zone-ip">轻量IP氛围</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">设施已有特色 · 贴膜+立牌即可 · 不需重复大投入</div></div>
-      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">东入口</div><div class="zone-ip">三部曲入口引导</div><div style="font-size:.68rem;color:var(--muted);margin-top:.2em">自然脚印地贴引导至森林/湿地区 · 形成探索路线</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent)"><div class="zone-name">北门入口区</div><div class="zone-ip">麦兜主阵地</div><div class="zone-desc">进园第一视觉点 · 巨型充气+拱门形成强IP印记；人流量最大</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent)"><div class="zone-name">活动草坪区</div><div class="zone-ip">麦兜+开园仪式</div><div class="zone-desc">面积最大 · 舞台/巡游/手工大赛/语录气球/星空电影</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent)"><div class="zone-name">亲子乐园 / 洞洞家园</div><div class="zone-ip">麦兜手工坊</div><div class="zone-desc">室内场地 · 精细手工活动 · 受天气影响小</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">森林探索区</div><div class="zone-ip">狼行者 · 自然三部曲</div><div class="zone-desc">天然契合神秘森林 · 错觉彩绘/探索径效果最佳</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">自然科普区</div><div class="zone-ip">凯尔经 · 自然三部曲</div><div class="zone-desc">植物展示区域 · 配合120种植物绘本活动</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">湿地生境区</div><div class="zone-ip">海洋之歌 · 三部曲</div><div class="zone-desc">水边场景适合海洋主题 · 设置精灵彩蛋</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent2)"><div class="zone-name">戏水游戏区</div><div class="zone-ip">轻量IP氛围</div><div class="zone-desc">设施已有特色 · 贴膜+立牌即可 · 不需重复大投入</div></div>
+      <div class="zone-card" style="border-left:3px solid var(--accent3)"><div class="zone-name">东入口</div><div class="zone-ip">三部曲入口引导</div><div class="zone-desc">自然脚印地贴引导至森林/湿地区 · 形成探索路线</div></div>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 9: 采购建议 & 总结 -->
+<!-- SLIDE 10: 采购建议 & 总结 -->
 <section class="slide">
-  <div class="bg-glow"></div>
   <div class="slide-inner stagger">
     <div class="tag">建议与说明</div>
     <h2>采购建议 & 预算说明</h2>
     <div class="grid-2">
       <div>
-        <div class="section-header"><h3 style="margin:0;white-space:nowrap">采购 vs 租赁建议</h3></div>
+        <div class="section-header"><h3>采购 vs 租赁建议</h3></div>
         <div class="suggest-card"><div class="title">玩偶套装 → 采购更优</div><div class="reason">每周末固定巡游，采购3套约1万，租赁半年已超此成本</div></div>
         <div class="suggest-card"><div class="title">星空电影设备 → 按次租赁</div><div class="reason">已按租赁计价；全暑期放映超8次后可考虑采购（约3-5万）</div></div>
         <div class="suggest-card"><div class="title">舞台/音响/灯光/LED屏 → 租赁</div><div class="reason">开园仪式一次性大型活动，租赁远优于采购</div></div>
-        <div class="section-header" style="margin-top:1em"><h3 style="margin:0;white-space:nowrap">压缩预算建议</h3></div>
+        <div class="section-header" style="margin-top:.8em"><h3>压缩预算建议</h3></div>
         <div class="suggest-card" style="border-left-color:var(--accent2)"><div class="title">友谊树装置 → 可简化为投影方案</div><div class="reason">LED感应装置¥15,000可简化为灯光投影¥8,000-15,000</div></div>
-        <div class="suggest-card" style="border-left-color:var(--accent2)"><div class="title">KOL策略 → 以小微博主为主</div><div class="reason">1-5万粉丝博主成本可控，深圳本地亲子号与目标客群高度匹配</div></div>
+        <div class="suggest-card" style="border-left-color:var(--accent2)"><div class="title">KOL策略 → 以小微博主为主</div><div class="reason">1-5万粉丝博主成本可控，部分可用门票/周边置换</div></div>
       </div>
       <div>
-        <div class="section-header"><h3 style="margin:0;white-space:nowrap">重要说明</h3></div>
-        <div class="highlight-box" style="margin-bottom:.8em;text-align:left">
-          <div style="font-weight:600;font-size:.85rem;margin-bottom:.5em;color:var(--accent)">IP授权费 · 未含在预算内</div>
-          <div style="font-size:.72rem;color:var(--muted);line-height:1.5">麦兜IP授权费及自然三部曲IP授权费需与版权方单独谈判，实际费用视合作方式而定</div>
+        <div class="section-header"><h3>重要说明</h3></div>
+        <div class="highlight-box" style="margin-bottom:.6em">
+          <div style="font-weight:700;font-size:.82rem;margin-bottom:.3em;color:var(--accent)">IP授权费 · 未含在预算内</div>
+          <div style="font-size:.7rem;color:var(--muted);line-height:1.5">麦兜IP授权费及自然三部曲IP授权费需与版权方单独谈判，实际费用视合作方式而定</div>
         </div>
-        <div class="highlight-box" style="margin-bottom:.8em;text-align:left">
-          <div style="font-weight:600;font-size:.85rem;margin-bottom:.5em;color:var(--accent2)">价格参考说明</div>
-          <div style="font-size:.72rem;color:var(--muted);line-height:1.5">所有价格参考淘宝/1688/天猫/深圳本地供应商报价，实际以采购合同为准。蓝色数字项为可调整输入项</div>
+        <div class="highlight-box" style="margin-bottom:.6em">
+          <div style="font-weight:700;font-size:.82rem;margin-bottom:.3em;color:var(--accent2)">价格参考说明</div>
+          <div style="font-size:.7rem;color:var(--muted);line-height:1.5">所有价格参考淘宝/1688/天猫/深圳本地供应商报价，实际以采购合同为准</div>
         </div>
-        <div class="highlight-box" style="text-align:left">
-          <div style="font-weight:600;font-size:.85rem;margin-bottom:.5em;color:var(--accent3)">运营周期</div>
-          <div style="font-size:.72rem;color:var(--muted);line-height:1.5">方案覆盖6.1开园日+暑期3个月运营（6-8月），预计总客流约10万人次，日均约3000-4000人</div>
+        <div class="highlight-box" style="margin-bottom:.6em">
+          <div style="font-weight:700;font-size:.82rem;margin-bottom:.3em;color:var(--accent3)">运营周期</div>
+          <div style="font-size:.7rem;color:var(--muted);line-height:1.5">方案覆盖6.1开园日 + 暑期3个月运营（6-8月），预计总客流约10万人次，日均约3000-4000人</div>
+        </div>
+        <div class="highlight-box">
+          <div style="font-weight:700;font-size:.82rem;margin-bottom:.3em;color:var(--accent4)">收入来源</div>
+          <div style="font-size:.7rem;color:var(--muted);line-height:1.5">IP衍生品销售、手工坊材料包、联名护照、餐车经营等均可与园区参与分成，部分项目3-6个月可回本</div>
         </div>
       </div>
     </div>
@@ -407,7 +643,7 @@ document.addEventListener('touchend', e => {
 
 const chartInited = {};
 function initCharts() {
-  const colors = ['#ff6b35','#ffd166','#06d6a0','#7b68ee','#ef476f','#118ab2','#073b4c'];
+  const colors = ['#d4603a','#c8956c','#8db580','#7b8ec2','#c97b84','#7ab5a0','#b89a6a'];
   const categories = ['麦兜IP核心','全园视觉系统','自然三部曲','6.1开园仪式','园区工作人员','运营辅助','传播推广'];
   const amounts = [146500, 29500, 27600, 120500, 24800, 33600, 28000];
 
@@ -415,11 +651,11 @@ function initCharts() {
     chartInited.pie = true;
     new Chart(document.getElementById('pieChart'), {
       type: 'doughnut',
-      data: { labels: categories, datasets: [{ data: amounts, backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }] },
+      data: { labels: categories, datasets: [{ data: amounts, backgroundColor: colors, borderWidth: 2, borderColor: '#fdf6ef', hoverOffset: 8 }] },
       options: {
         responsive: true, maintainAspectRatio: false,
         plugins: {
-          legend: { position: 'bottom', labels: { color: '#8888aa', font: { size: 11, family: 'Noto Sans SC' }, padding: 10, usePointStyle: true } },
+          legend: { position: 'bottom', labels: { color: '#9a8a7e', font: { size: 11, family: 'Noto Sans SC' }, padding: 10, usePointStyle: true } },
           tooltip: { callbacks: { label: ctx => ctx.label + ': ¥' + ctx.parsed.toLocaleString() + ' (' + ((ctx.parsed / 410500) * 100).toFixed(1) + '%)' } }
         },
         cutout: '55%'
@@ -434,37 +670,12 @@ function initCharts() {
       options: {
         responsive: true, maintainAspectRatio: false, indexAxis: 'y',
         scales: {
-          x: { ticks: { color: '#8888aa', callback: v => '¥' + (v / 10000).toFixed(1) + '万', font: { size: 10 } }, grid: { color: '#2a2a4a' } },
-          y: { ticks: { color: '#f0f0f5', font: { size: 11, family: 'Noto Sans SC' } }, grid: { display: false } }
+          x: { ticks: { color: '#9a8a7e', callback: v => '¥' + (v / 10000).toFixed(1) + '万', font: { size: 10 } }, grid: { color: '#e8ddd2' } },
+          y: { ticks: { color: '#3a2e28', font: { size: 11, family: 'Noto Sans SC' } }, grid: { display: false } }
         },
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.x.toLocaleString() } }
-        }
-      }
-    });
-  }
-
-  if (current === 5 && !chartInited.ceremony) {
-    chartInited.ceremony = true;
-    const cLabels = ['合唱团+歌手','AI合唱团','友谊树装置','舞台+音响+LED','联名护照','手工大赛+拱门+策划'];
-    const cData = [50000, 15000, 15000, 13000, 10000, 17500];
-    const cColors = ['#ff6b35','#06d6a0','#7b68ee','#ffd166','#118ab2','#ef476f'];
-    new Chart(document.getElementById('ceremonyChart'), {
-      type: 'bar',
-      data: {
-        labels: cLabels,
-        datasets: [{ label: '预算', data: cData, backgroundColor: cColors, borderRadius: 4 }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        scales: {
-          x: { ticks: { color: '#8888aa', font: { size: 9, family: 'Noto Sans SC' }, maxRotation: 35 }, grid: { display: false } },
-          y: { ticks: { color: '#8888aa', callback: v => '¥' + (v / 10000) + '万', font: { size: 10 } }, grid: { color: '#2a2a4a' } }
-        },
-        plugins: {
-          legend: { display: false },
-          tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.y.toLocaleString() } }
         }
       }
     });
