@@ -202,9 +202,8 @@ table .has-note:hover td:first-child::after{background:var(--gold);color:#fff;an
   .nav-arrow{width:28px;height:28px}
   .card{padding:.7rem}
   .badge{margin-bottom:.5em;font-size:.66rem}
-  .chart-box canvas{max-height:260px}
   .flex-row .chart-box{max-width:100%!important;width:100%}
-  .flex-row .chart-box canvas{height:auto!important}
+  .flex-row .chart-box canvas{max-height:none!important;min-height:240px}
   .tip-pop,.tip-pop.flip{position:fixed;left:5vw;right:5vw;top:auto;bottom:64px;transform:none;width:auto;max-width:90vw;z-index:200}
   .tip-pop::before{display:none}
   .cat-grid-inner{grid-template-columns:repeat(2,1fr)!important}
