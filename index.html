@@ -497,21 +497,47 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(current-1)}
 });
 
-// Mouse wheel navigation (debounced)
+// Helper: check if current slide is at scroll boundary
+function atTop(el){return el.scrollTop<=5}
+function atBottom(el){return el.scrollTop+el.clientHeight>=el.scrollHeight-5}
+
+// Mouse wheel navigation (debounced, with scroll-aware logic)
 let wheelLock=false;
 document.addEventListener('wheel',e=>{
+  const slide=slides[current];
+  const scrollable=slide.scrollHeight>slide.clientHeight+10;
+  // If slide has scrollable content, only navigate when at boundary
+  if(scrollable){
+    if(e.deltaY>0&&!atBottom(slide))return;  // scrolling down, not at bottom yet
+    if(e.deltaY<0&&!atTop(slide))return;     // scrolling up, not at top yet
+  }
   e.preventDefault();
   if(wheelLock)return;
   wheelLock=true;
-  if(e.deltaY>30)go(current+1);
-  else if(e.deltaY<-30)go(current-1);
-  setTimeout(()=>{wheelLock=false},800);
+  if(e.deltaY>5)go(current+1);
+  else if(e.deltaY<-5)go(current-1);
+  setTimeout(()=>{wheelLock=false},600);
 },{passive:false});
 
-// Touch swipe — vertical (up/down)
-let ty=0;
-document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
-document.addEventListener('touchend',e=>{const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>50)go(current+(d>0?1:-1))});
+// Touch swipe — vertical, scroll-aware
+let ty=0,touchSlide=null;
+document.addEventListener('touchstart',e=>{
+  ty=e.touches[0].clientY;
+  touchSlide=slides[current];
+},{passive:true});
+document.addEventListener('touchend',e=>{
+  const d=ty-e.changedTouches[0].clientY;
+  if(Math.abs(d)<60)return; // ignore small swipes
+  const slide=touchSlide||slides[current];
+  const scrollable=slide.scrollHeight>slide.clientHeight+10;
+  if(scrollable){
+    // Swipe up (d>0) = want next page, only if at bottom
+    if(d>0&&!atBottom(slide))return;
+    // Swipe down (d<0) = want prev page, only if at top
+    if(d<0&&!atTop(slide))return;
+  }
+  go(current+(d>0?1:-1));
+});
 
 const done={};
 function initCharts(){
