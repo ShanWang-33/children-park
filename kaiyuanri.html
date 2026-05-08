@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳市儿童公园开园日唤醒仪式 · 活动流程</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf6ec;
+  --warm:#fbe8d3;
+  --card:#ffffff;
+  --accent:#e85a4f;
+  --accent-rgb:232,90,79;
+  --accent-light:#fde0dc;
+  --sky:#5cb6d6; --sky-light:#dbeef6;
+  --leaf:#7cb86b; --leaf-light:#e2f0db;
+  --gold:#e8b441; --gold-light:#fbeac8;
+  --plum:#9b6b9e; --plum-light:#ecdfee;
+  --ink:#2b2722;
+  --ink2:#5a544c;
+  --muted:#9a9389;
+  --sans:'Noto Sans SC',system-ui,sans-serif;
+  --serif:'Noto Serif SC',Georgia,serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:200;width:0;transition:width .6s}
+
+.deck{display:flex;flex-direction:column;width:100%;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.slide{min-width:100vw;height:100vh;height:100dvh;display:flex;align-items:flex-start;justify-content:center;position:relative;overflow-x:hidden;overflow-y:auto;padding:clamp(1.2rem,3vw,3rem);padding-right:36px;-webkit-overflow-scrolling:touch}
+.slide::before{content:'';position:absolute;inset:0;opacity:.5;z-index:0;pointer-events:none}
+.slide:nth-child(1)::before{background:radial-gradient(ellipse at 20% 80%,var(--accent-light) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,var(--gold-light) 0%,transparent 55%)}
+.slide:nth-child(2)::before{background:radial-gradient(ellipse at 80% 80%,var(--sky-light) 0%,transparent 55%)}
+.slide:nth-child(3)::before{background:radial-gradient(ellipse at 10% 20%,var(--leaf-light) 0%,transparent 55%)}
+.slide:nth-child(4)::before{background:radial-gradient(ellipse at 90% 50%,var(--gold-light) 0%,transparent 55%)}
+.slide:nth-child(5)::before{background:radial-gradient(ellipse at 20% 90%,var(--sky-light) 0%,transparent 55%)}
+.slide:nth-child(6)::before{background:radial-gradient(ellipse at 50% 0%,var(--accent-light) 0%,transparent 50%)}
+.slide:nth-child(7)::before{background:radial-gradient(ellipse at 70% 80%,var(--plum-light) 0%,transparent 55%)}
+.slide:nth-child(8)::before{background:radial-gradient(ellipse at 30% 50%,var(--leaf-light) 0%,transparent 55%)}
+.slide:nth-child(9)::before{background:radial-gradient(ellipse at 80% 30%,var(--gold-light) 0%,transparent 55%)}
+.slide:nth-child(10)::before{background:radial-gradient(ellipse at 50% 100%,var(--accent-light) 0%,transparent 55%)}
+
+.slide-inner{max-width:1180px;width:100%;z-index:2;opacity:0;transform:translateY(24px) scale(.98);transition:all .8s cubic-bezier(.4,0,.2,1);padding:1rem 0}
+.slide.active .slide-inner{opacity:1;transform:translateY(0) scale(1)}
+
+/* Typography */
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5.5vw,4rem);line-height:1.15;color:var(--ink);letter-spacing:-.5px}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.25;color:var(--ink);margin-bottom:1.2rem}
+h3{font-family:var(--serif);font-weight:700;font-size:clamp(1.1rem,1.9vw,1.4rem);color:var(--ink);margin-bottom:.5rem}
+p{line-height:1.8;color:var(--ink2);font-size:clamp(.95rem,1.15vw,1.05rem)}
+.lead{font-size:clamp(1rem,1.4vw,1.2rem);color:var(--ink2);line-height:1.85}
+
+/* Badge */
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:999px;font-size:.78rem;font-weight:500;letter-spacing:.5px}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge-coral{background:var(--accent-light);color:var(--accent)}
+.badge-sky{background:var(--sky-light);color:var(--sky)}
+.badge-leaf{background:var(--leaf-light);color:var(--leaf)}
+.badge-gold{background:var(--gold-light);color:#b07b1a}
+.badge-plum{background:var(--plum-light);color:var(--plum)}
+
+/* Hero */
+.hero-num{font-family:var(--serif);font-weight:900;font-size:clamp(2.5rem,7vw,5rem);color:var(--accent);line-height:1;margin:1rem 0 .3rem}
+.hero-sub{font-size:clamp(.95rem,1.3vw,1.1rem);color:var(--muted);letter-spacing:1px}
+
+/* Stats */
+.stats{display:flex;gap:clamp(1rem,3vw,3rem);flex-wrap:wrap;margin-top:1.5rem}
+.stat{padding:.5rem 0}
+.stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(1.5rem,2.6vw,2.1rem);color:var(--ink)}
+.stat .t{font-size:.85rem;color:var(--muted);margin-top:.2rem}
+
+/* Card */
+.card{background:var(--card);border-radius:18px;padding:clamp(1rem,1.8vw,1.5rem);box-shadow:0 2px 14px rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.04);transition:all .35s cubic-bezier(.4,0,.2,1)}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.08)}
+.card .label{font-size:.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;font-weight:600}
+.card .value{font-family:var(--serif);font-weight:700;font-size:clamp(1.05rem,1.5vw,1.25rem);color:var(--ink);margin-bottom:.4rem}
+.card .detail{font-size:.92rem;color:var(--ink2);line-height:1.7}
+.card ul{list-style:none;padding:0}
+.card li{font-size:.9rem;color:var(--ink2);line-height:1.75;padding-left:1.1rem;position:relative}
+.card li::before{content:'•';position:absolute;left:0;color:var(--accent);font-weight:700}
+
+/* Grids */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.2rem)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.3vw,1rem)}
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.5rem,1.2vw,.9rem)}
+.flex-row{display:flex;gap:clamp(1rem,2vw,2rem);align-items:start}
+
+/* Step flow */
+.flow{display:flex;align-items:stretch;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
+.flow-step{flex:1;min-width:160px;background:var(--card);border-radius:16px;padding:1.1rem;border-left:4px solid var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.04);transition:all .3s}
+.flow-step:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+.flow-step .step-no{font-family:var(--serif);font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1}
+.flow-step .step-title{font-weight:700;margin:.5rem 0 .35rem;font-size:1rem;color:var(--ink)}
+.flow-step .step-desc{font-size:.83rem;color:var(--ink2);line-height:1.6}
+.flow-step:nth-child(2){border-left-color:var(--sky)}
+.flow-step:nth-child(2) .step-no{color:var(--sky)}
+.flow-step:nth-child(3){border-left-color:var(--leaf)}
+.flow-step:nth-child(3) .step-no{color:var(--leaf)}
+.flow-step:nth-child(4){border-left-color:var(--gold)}
+.flow-step:nth-child(4) .step-no{color:#b07b1a}
+.flow-step:nth-child(5){border-left-color:var(--plum)}
+.flow-step:nth-child(5) .step-no{color:var(--plum)}
+
+/* Challenge card */
+.chal{background:var(--card);border-radius:20px;padding:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,.05);position:relative;overflow:hidden;transition:all .35s}
+.chal:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,0,0,.1)}
+.chal::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--accent)}
+.chal-1::before{background:var(--sky)}
+.chal-2::before{background:var(--leaf)}
+.chal-3::before{background:var(--gold)}
+.chal-4::before{background:var(--accent)}
+.chal-5::before{background:var(--plum)}
+.chal .icon{font-size:1.8rem;margin-bottom:.4rem}
+.chal .name{font-family:var(--serif);font-weight:700;font-size:1.1rem;color:var(--ink);margin-bottom:.3rem}
+.chal .sub{font-size:.78rem;color:var(--muted);margin-bottom:.7rem}
+.chal .courage{font-size:.85rem;color:var(--accent);font-weight:500;margin-top:.5rem;padding-top:.5rem;border-top:1px dashed rgba(0,0,0,.1)}
+.chal .reward{font-size:.78rem;color:var(--ink2);margin-top:.4rem}
+.chal-1 .courage{color:var(--sky)}
+.chal-2 .courage{color:var(--leaf)}
+.chal-3 .courage{color:#b07b1a}
+.chal-4 .courage{color:var(--accent)}
+.chal-5 .courage{color:var(--plum)}
+
+/* Timeline (rundown) */
+.tl{display:flex;flex-direction:column;gap:.7rem;margin-top:1rem}
+.tl-item{display:flex;gap:1rem;background:var(--card);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 2px 10px rgba(0,0,0,.04);transition:all .3s}
+.tl-item:hover{transform:translateX(4px);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.tl-code{flex-shrink:0;width:48px;height:48px;border-radius:12px;background:var(--accent-light);color:var(--accent);font-family:var(--serif);font-weight:900;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.tl-body{flex:1}
+.tl-title{font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:.2rem}
+.tl-desc{font-size:.88rem;color:var(--ink2);line-height:1.65}
+
+/* Quote */
+.quote{background:linear-gradient(135deg,var(--warm) 0%,var(--accent-light) 100%);border-radius:20px;padding:clamp(1.3rem,2.5vw,2rem);margin:1.2rem 0;font-family:var(--serif);font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.85;color:var(--ink);position:relative}
+.quote::before{content:'"';font-family:Georgia,serif;font-size:4rem;color:var(--accent);opacity:.3;position:absolute;top:-.5rem;left:1rem;line-height:1}
+
+/* Materials list */
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem}
+.mat-item{background:var(--card);border-radius:12px;padding:.85rem 1rem;border-left:3px solid var(--gold);transition:all .3s}
+.mat-item:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.06)}
+.mat-name{font-weight:600;font-size:.95rem;color:var(--ink)}
+.mat-qty{font-family:var(--serif);font-weight:700;color:var(--accent);font-size:.95rem;margin-top:.2rem}
+.mat-use{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+
+/* People grid */
+.ppl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem}
+.ppl-item{background:var(--card);border-radius:14px;padding:1rem;text-align:center;transition:all .3s}
+.ppl-item:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.07)}
+.ppl-num{font-family:var(--serif);font-weight:900;font-size:1.6rem;color:var(--accent);line-height:1}
+.ppl-role{font-weight:600;margin-top:.4rem;color:var(--ink);font-size:.95rem}
+.ppl-duty{font-size:.78rem;color:var(--muted);margin-top:.3rem;line-height:1.5}
+
+/* Stagger */
+.slide.active .stagger > *{opacity:0;animation:rise .65s cubic-bezier(.4,0,.2,1) forwards;transform:translateY(16px)}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+.slide.active .stagger > *:nth-child(1){animation-delay:.05s}
+.slide.active .stagger > *:nth-child(2){animation-delay:.12s}
+.slide.active .stagger > *:nth-child(3){animation-delay:.19s}
+.slide.active .stagger > *:nth-child(4){animation-delay:.26s}
+.slide.active .stagger > *:nth-child(5){animation-delay:.33s}
+.slide.active .stagger > *:nth-child(6){animation-delay:.40s}
+.slide.active .stagger > *:nth-child(7){animation-delay:.47s}
+.slide.active .stagger > *:nth-child(8){animation-delay:.54s}
+
+/* Section title block */
+.sec-title{display:flex;align-items:baseline;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
+.sec-num{font-family:var(--serif);font-weight:900;font-size:clamp(2.4rem,4.5vw,3.5rem);color:var(--accent);line-height:1;opacity:.85}
+.sec-cap{font-size:.8rem;color:var(--muted);letter-spacing:2px}
+
+/* Cover decorative */
+.cover-shapes{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.cover-shapes span{position:absolute;border-radius:50%;opacity:.5}
+.cover-shapes span:nth-child(1){width:180px;height:180px;background:var(--accent-light);top:8%;right:6%}
+.cover-shapes span:nth-child(2){width:120px;height:120px;background:var(--gold-light);bottom:12%;left:8%}
+.cover-shapes span:nth-child(3){width:80px;height:80px;background:var(--sky-light);top:30%;left:15%}
+.cover-shapes span:nth-child(4){width:60px;height:60px;background:var(--leaf-light);bottom:30%;right:18%}
+
+/* Cover layout with mascot image */
+.cover-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;align-items:center}
+.cover-mascot{position:relative;display:flex;justify-content:center;align-items:center}
+.cover-mascot img{width:100%;max-width:460px;height:auto;filter:drop-shadow(0 20px 40px rgba(232,90,79,.18));animation:bob 4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* Image cards */
+.img-card{border-radius:20px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.1);transition:all .35s;background:var(--card)}
+.img-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.15)}
+.img-card img{width:100%;height:auto;display:block}
+.img-cap{padding:.8rem 1rem}
+.img-cap-title{font-weight:700;color:var(--ink);font-size:.95rem;margin-bottom:.2rem}
+.img-cap-sub{font-size:.8rem;color:var(--muted)}
+
+/* Dot nav */
+.dot-nav{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
+.dot-btn{width:10px;height:10px;border-radius:50%;border:none;background:rgba(0,0,0,.18);cursor:pointer;transition:all .3s;padding:0}
+.dot-btn:hover{background:var(--accent);transform:scale(1.3)}
+.dot-btn.active{background:var(--accent);transform:scale(1.4);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.2)}
+
+/* Burger */
+.burger{display:none;position:fixed;top:14px;right:14px;z-index:200;background:var(--card);border:none;border-radius:10px;width:42px;height:42px;font-size:1.3rem;box-shadow:0 2px 10px rgba(0,0,0,.1);cursor:pointer}
+.mob-nav{display:none;position:fixed;top:64px;right:14px;z-index:200;background:var(--card);border-radius:14px;padding:10px 0;box-shadow:0 8px 30px rgba(0,0,0,.15);max-height:75vh;overflow-y:auto;min-width:200px}
+.mob-nav a{display:block;padding:10px 22px;color:var(--ink);text-decoration:none;font-size:.9rem}
+.mob-nav a:hover,.mob-nav a.active{color:var(--accent);background:rgba(var(--accent-rgb),.06)}
+.mob-nav.open{display:block}
+
+@media (max-width:768px){
+  .grid-2,.grid-3,.grid-5{grid-template-columns:1fr}
+  .flex-row{flex-direction:column;gap:1rem}
+  .slide{padding:1rem;padding-right:20px}
+  .burger{display:block}
+  .dot-nav{display:none}
+  .stats{gap:1.2rem}
+  .flow-step{min-width:100%}
+  .cover-grid{grid-template-columns:1fr;gap:1rem}
+  .cover-mascot img{max-width:260px}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress"></div>
+<button class="burger" id="burger" aria-label="菜单">☰</button>
+<nav class="mob-nav" id="mobNav"></nav>
+
+<div class="deck" id="deck">
+
+<!-- Slide 1: 封面 -->
+<section class="slide">
+  <div class="cover-shapes"><span></span><span></span><span></span><span></span></div>
+  <div class="slide-inner stagger">
+    <div class="cover-grid">
+      <div>
+        <div class="badge badge-coral">2026 / 06 · 开园日</div>
+        <h1 style="margin-top:1rem">深圳市儿童公园<br><span style="color:var(--accent)">开园日唤醒仪式</span></h1>
+        <div class="lead" style="margin-top:1rem;font-family:var(--serif);font-size:clamp(1.1rem,1.8vw,1.5rem);color:var(--ink2)">—— 帮助大笨象交 100 个朋友 ——</div>
+        <div class="stats">
+          <div class="stat"><div class="n">10000</div><div class="t">参与家庭(预估)</div></div>
+          <div class="stat"><div class="n">5</div><div class="t">线索区挑战</div></div>
+          <div class="stat"><div class="n">100</div><div class="t">个朋友的承诺</div></div>
+          <div class="stat"><div class="n">1</div><div class="t">枚金色脚印</div></div>
+        </div>
+        <p style="margin-top:1.5rem;color:var(--muted);font-size:.9rem">活动流程 RUNDOWN · 全员参与的开园仪式</p>
+      </div>
+      <div class="cover-mascot">
+        <img src="images/elephant-mascot.jpg" alt="大笨象 IP 形象" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 2: 核心叙事 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">01</span><div><div class="sec-cap">CORE NARRATIVE</div><h2 style="margin:0">活动主题与核心叙事</h2></div></div>
+    <div class="quote">
+      1987 年，公园刚建成。一个孩子第一个踩上石头滑梯，留下了一个小小的脚印。那枚脚印没有消失，而是悄悄藏进了石头里……终于有一天，这座石头滑梯<strong style="color:var(--accent)">"醒了"</strong>。
+    </div>
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card">
+        <div class="label">叙事设定</div>
+        <div class="value">大笨象醒来了</div>
+        <div class="detail">它有一点笨、有一点害羞，想和大家做朋友。整个公园都在帮它完成一个任务 —— 交到 100 个朋友。</div>
+      </div>
+      <div class="card">
+        <div class="label">参与方式</div>
+        <div class="value">脚印地图 · 5 个挑战</div>
+        <div class="detail">孩子跟随脚印地图穿梭于 5 个线索区，每完成一个"勇气挑战"获得一枚脚印贴纸，最后贴上大笨象塑雕。</div>
+      </div>
+    </div>
+    <h3 style="margin-top:1.5rem">情感价值</h3>
+    <div class="grid-3" style="margin-top:.6rem">
+      <div class="card"><div class="value" style="color:var(--accent)">成为开园的一部分</div><div class="detail">不是"宣布开园"，而是让每个孩子<strong>亲手参与</strong>。</div></div>
+      <div class="card"><div class="value" style="color:var(--sky)">每枚脚印都算数</div><div class="detail">每个孩子都是大笨象的 100 个朋友之一。</div></div>
+      <div class="card"><div class="value" style="color:var(--leaf)">寻找 · 尝试 · 陪伴 · 勇敢</div><div class="detail">把开园变成一场全园参与的体验。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: 整体动线 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">02</span><div><div class="sec-cap">USER JOURNEY</div><h2 style="margin:0">参与者整体动线</h2></div></div>
+    <p class="lead">开园日参与者(亲子家庭)的完整动线 —— 从入园到仪式的 5 个步骤。</p>
+    <div class="flow" style="margin-top:1.5rem">
+      <div class="flow-step"><div class="step-no">①</div><div class="step-title">北门入园</div><div class="step-desc">入口签到处 → 进入园区。入口充气互动墙 + 地面脚印彩绘引导。</div></div>
+      <div class="flow-step"><div class="step-no">②</div><div class="step-title">签到领物料</div><div class="step-desc">领取「大笨象朋友卡」+「脚印地图」+ IP衍生品。</div></div>
+      <div class="flow-step"><div class="step-no">③</div><div class="step-title">5 挑战集章</div><div class="step-desc">按地图前往 5 个线索区，每完成一项领取一枚脚印贴纸。</div></div>
+      <div class="flow-step"><div class="step-no">④</div><div class="step-title">回到主舞台</div><div class="step-desc">将集齐的 5 枚脚印贴在大笨象人偶拼图相应位置。</div></div>
+      <div class="flow-step"><div class="step-no">⑤</div><div class="step-title">开园仪式</div><div class="step-desc">儿童话剧 → 领导贴最后一枚 → 全员喊话："你好，我来和你做朋友。"</div></div>
+    </div>
+    <div class="quote" style="margin-top:1.8rem;font-size:1rem">
+      所有孩子将自己的脚印贴在主舞台的大笨象塑雕上，由领导嘉宾完成最后一块拼图，正式宣告大笨象<strong style="color:var(--accent)">"醒来"</strong>，公园开园。
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: 环节A -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-gold">环节 A</span><div><div class="sec-cap">PRE-OPENING</div><h2 style="margin:0">开园前 · 全园布置就位</h2></div></div>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-code">A-1</div>
+        <div class="tl-body">
+          <div class="tl-title">园区视觉就位</div>
+          <div class="tl-desc">北门充气互动墙安装 · 全园 IP 立牌、地面脚印彩绘检查 · 各区域吊旗、围栏贴膜、主题旗帜悬挂 · 大笨象语录气球装置铺陈布置<br><span style="color:var(--muted);font-size:.82rem">物料：充气互动墙×1 · 立牌 15-20 · 地面彩绘 80-120㎡ · 围栏贴膜 100-150㎡ · 吊旗 30-50 · 语录气球 6-8</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code">A-2</div>
+        <div class="tl-body">
+          <div class="tl-title">主舞台与塑雕就位</div>
+          <div class="tl-desc">主舞台位于公园北门处(以装饰为主) · 人偶服装表面预留 5×N 枚脚印拼图位置 · 舞台背景板、IP装饰、地贴 · 音响麦克风就位<br><span style="color:var(--muted);font-size:.82rem">物料：大笨象人偶服(主装置) · 巨型充气大笨象 8米 · 音响/麦克风</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code">A-3</div>
+        <div class="tl-body">
+          <div class="tl-title">5 挑战点就位</div>
+          <div class="tl-desc">5 个线索区(风/树/滑梯/秋千/笑声)挑战点物料布置 · 各点位指引牌、说明牌安装 · 脚印贴纸提前发放 · 工作人员佩戴「公园陪伴员」工牌<br><span style="color:var(--muted);font-size:.82rem">物料：5 种脚印贴纸(每种 10000 份)</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code">A-4</div>
+        <div class="tl-body">
+          <div class="tl-title">签到台与物料台就位</div>
+          <div class="tl-desc">北门入口签到台搭建 · 朋友卡 + 脚印地图 + 衍生品 + 笔等物料分包 · "今天谁陪了谁"充气互动墙 · 签到引导员、物料发放员到岗<br><span style="color:var(--muted);font-size:.82rem">物料：朋友卡 10000 · 脚印地图 10000 · 衍生品 5000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 5: 环节B -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-sky">环节 B</span><div><div class="sec-cap">CHECK-IN</div><h2 style="margin:0">参与者入园 · 签到领物料</h2></div></div>
+    <div class="flex-row" style="margin-top:1rem;gap:1.5rem">
+      <div class="img-card" style="flex:0 0 42%;max-width:480px">
+        <img src="images/elephant-balloon.jpg" alt="8米巨型充气大笨象" loading="lazy">
+        <div class="img-cap">
+          <div class="img-cap-title">8 米巨型充气大笨象</div>
+          <div class="img-cap-sub">北门入口视觉锚点 · 让孩子第一眼就遇见它</div>
+        </div>
+      </div>
+      <div style="flex:1">
+    <div class="grid-3" style="grid-template-columns:1fr;gap:.8rem">
+      <div class="card">
+        <div class="label">B-1 · 北门入园</div>
+        <div class="value">视觉锚点引导</div>
+        <ul style="margin-top:.6rem">
+          <li>参与者经北门入园</li>
+          <li>8 米巨型充气大笨象作为视觉锚点</li>
+          <li>地面脚印彩绘从入口延伸至签到台</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">B-2 · 签到领朋友卡</div>
+        <div class="value">每个孩子一张卡</div>
+        <ul style="margin-top:.6rem">
+          <li>你叫什么名字</li>
+          <li>你今天想尝试什么</li>
+          <li>送给大笨象一句什么话</li>
+          <li>同时领取「脚印地图」</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">B-3 · 大笨象人偶迎宾</div>
+        <div class="value">击掌 · 合影 · 引导</div>
+        <ul style="margin-top:.6rem">
+          <li>2 个大笨象人偶(绒面 + 光面)</li>
+          <li>与孩子击掌、合影、引导挑战点</li>
+          <li>营造「大笨象就住在公园里」的氛围</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div class="quote" style="margin-top:1.5rem">
+      工作人员引导：<strong style="color:var(--accent)">「今天大笨象想交 100 个朋友，你愿意帮它吗？」</strong>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: 环节C - 5挑战 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-coral">环节 C</span><div><div class="sec-cap">5 CHALLENGES</div><h2 style="margin:0">5 个线索区挑战 · 集齐脚印</h2></div></div>
+    <p class="lead">所有挑战围绕<strong>「勇气」</strong>主题。每完成一项可获得对应主题的「大笨象脚印贴纸」一枚。</p>
+    <div class="grid-5" style="margin-top:1.2rem">
+      <div class="chal chal-1">
+        <div class="icon">🌬️</div>
+        <div class="name">风的线索</div>
+        <div class="sub">象鼻传球 · 草坪开阔处</div>
+        <ul style="font-size:.82rem;color:var(--ink2);list-style:none;line-height:1.7"><li>亲子合作模拟"象鼻"运球</li><li>强调合作而非竞技</li></ul>
+        <div class="courage">「一起试试看」 — 勇敢合作</div>
+        <div class="reward">🏅 合作的脚印</div>
+      </div>
+      <div class="chal chal-2">
+        <div class="icon">🌳</div>
+        <div class="name">树的线索</div>
+        <div class="sub">写给未来 · 树荫区</div>
+        <ul style="font-size:.82rem;color:var(--ink2);list-style:none;line-height:1.7"><li>时光信投递</li><li>20 年后由公园寄回</li></ul>
+        <div class="courage">「害怕也没关系」 — 勇敢表达</div>
+        <div class="reward">🏅 时光信的脚印</div>
+      </div>
+      <div class="chal chal-3">
+        <div class="icon">🛝</div>
+        <div class="name">滑梯的线索</div>
+        <div class="sub">'慢慢来'专区 · 大象滑梯旁</div>
+        <ul style="font-size:.82rem;color:var(--ink2);list-style:none;line-height:1.7"><li>慢走脚印道</li><li>不太平衡的小桥</li><li>一起拼石头</li></ul>
+        <div class="courage">「可以慢一点」 — 做不擅长的事</div>
+        <div class="reward">🏅 慢慢来的脚印</div>
+      </div>
+      <div class="chal chal-4">
+        <div class="icon">🤗</div>
+        <div class="name">秋千的线索</div>
+        <div class="sub">和大笨象做朋友</div>
+        <ul style="font-size:.82rem;color:var(--ink2);list-style:none;line-height:1.7"><li>教大笨象打招呼</li><li>给一个大大的拥抱</li><li>说一句鼓励的话</li></ul>
+        <div class="courage">「你好呀」 — 主动表达善意</div>
+        <div class="reward">🏅 朋友的脚印</div>
+      </div>
+      <div class="chal chal-5">
+        <div class="icon">🎨</div>
+        <div class="name">笑声的线索</div>
+        <div class="sub">织梦手工 · 亲子活动室</div>
+        <ul style="font-size:.82rem;color:var(--ink2);list-style:none;line-height:1.7"><li>绕线艺术 / 剪纸 / 涂色</li><li>三选一完成即可</li></ul>
+        <div class="courage">「今天你很勇敢」 — 用作品表达</div>
+        <div class="reward">🏅 创造的脚印</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 7: 环节D - 仪式 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-plum">环节 D</span><div><div class="sec-cap">OPENING CEREMONY</div><h2 style="margin:0">主舞台开园仪式</h2></div></div>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-code" style="background:var(--sky-light);color:var(--sky)">D-1</div>
+        <div class="tl-body"><div class="tl-title">集合 · 暖场</div><div class="tl-desc">主持人召集集齐脚印的家庭来到主舞台前 · 大屏幕滚动播放"今天大笨象交了多少朋友？"· 大笨象人偶上台暖场互动</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code" style="background:var(--leaf-light);color:var(--leaf)">D-2</div>
+        <div class="tl-body"><div class="tl-title">孩子们贴脚印</div><div class="tl-desc">所有孩子上前将集齐的 5 枚脚印贴在大笨象人偶的拼图位置 · 4-6 名工作人员协助引导 · 现场播放轻松童趣音乐</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code" style="background:var(--gold-light);color:#b07b1a">D-3</div>
+        <div class="tl-body"><div class="tl-title">儿童话剧 (约 5 分钟)</div><div class="tl-desc">剧目核心：<strong>「失败也没关系」</strong>—— 大笨象跳舞没跳好、传球没接住，自己说："啊，没关系，我可以再试一次。"</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code" style="background:var(--accent-light);color:var(--accent)">D-4</div>
+        <div class="tl-body"><div class="tl-title">领导嘉宾完成最后拼图 · 仪式高潮</div><div class="tl-desc">领导贴上最后一枚<strong style="color:#b07b1a">「金色脚印」</strong>(尺寸略大、烫金质感)。大笨象说："原来，第一枚脚印不是以前的那一个，是今天，你们每个人留下的。"</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-code" style="background:var(--plum-light);color:var(--plum)">D-5</div>
+        <div class="tl-body"><div class="tl-title">全员喊话 · 开园宣告</div><div class="tl-desc">全场齐声："你好，我来和你做朋友！" 大笨象回应："谢谢你们，今天我交到了好多好多朋友！" 主持人宣布：<strong>「深圳市儿童公园唤醒仪式正式唤醒！」</strong>撒花/气球释放/合影时刻</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 8: 环节E -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-leaf">环节 E</span><div><div class="sec-cap">FREE PLAY & CLOSING</div><h2 style="margin:0">自由活动 · 闭园</h2></div></div>
+    <div class="grid-2" style="margin-top:1.2rem">
+      <div class="card">
+        <div class="label">E-1 · 自由游园</div>
+        <div class="value">仪式后的延续</div>
+        <ul style="margin-top:.7rem">
+          <li>仪式结束后，孩子可继续自由游玩</li>
+          <li>各挑战点继续开放，未完成的家庭可补足</li>
+          <li>大笨象人偶在园区"散步"，营造"它住在公园里"的感觉</li>
+          <li>工作人员引导拍照、合影、领取纪念物料</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">E-2 · 闭园 · 撤场</div>
+        <div class="value">温柔告别</div>
+        <ul style="margin-top:.7rem">
+          <li>闭园广播提示家庭有序离园</li>
+          <li>大笨象人偶在北门送别，挥手告别</li>
+          <li>清点物料，部分撤场，部分保留作为常态 IP 装置</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote" style="margin-top:1.5rem">
+      让大笨象继续留在公园里 —— 它不是为了开园而出现，<strong style="color:var(--accent)">它就住在这里</strong>。
+    </div>
+  </div>
+</section>
+
+<!-- Slide 9: 物料清单 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">04</span><div><div class="sec-cap">MATERIALS</div><h2 style="margin:0">关键物料清单</h2></div></div>
+    <h3 style="margin-top:.5rem;color:var(--accent)">IP 核心装置 & 视觉系统</h3>
+    <div class="mat-grid" style="margin-top:.6rem">
+      <div class="mat-item"><div class="mat-name">巨型充气大笨象</div><div class="mat-qty">1 套 · 8 米</div><div class="mat-use">北门入口视觉锚点</div></div>
+      <div class="mat-item"><div class="mat-name">大笨象人偶服装</div><div class="mat-qty">2 套</div><div class="mat-use">绒面 + 光面 · 北门/秋千/舞台</div></div>
+      <div class="mat-item"><div class="mat-name">充气互动墙</div><div class="mat-qty">1 处</div><div class="mat-use">"今天谁陪了谁" · 北门</div></div>
+      <div class="mat-item"><div class="mat-name">语录气球装置</div><div class="mat-qty">6-8 件</div><div class="mat-use">活动草坪「语录花园」</div></div>
+      <div class="mat-item"><div class="mat-name">IP 打卡背景板</div><div class="mat-qty">5-8 块</div><div class="mat-use">北门/草坪/各线索区</div></div>
+      <div class="mat-item"><div class="mat-name">立牌 / 导视牌</div><div class="mat-qty">15-20 个</div><div class="mat-use">各区入口及主路</div></div>
+      <div class="mat-item"><div class="mat-name">地面脚印彩绘</div><div class="mat-qty">80-120 ㎡</div><div class="mat-use">北门 → 5 个线索区主动线</div></div>
+      <div class="mat-item"><div class="mat-name">围栏 / 器械贴膜</div><div class="mat-qty">100-150 ㎡</div><div class="mat-use">无动力区 / 戏水区</div></div>
+    </div>
+    <h3 style="margin-top:1.2rem;color:var(--accent)">仪式与签到物料</h3>
+    <div class="mat-grid" style="margin-top:.6rem">
+      <div class="mat-item" style="border-left-color:var(--accent)"><div class="mat-name">大笨象朋友卡</div><div class="mat-qty">10000 份</div><div class="mat-use">入园签到时发放</div></div>
+      <div class="mat-item" style="border-left-color:var(--accent)"><div class="mat-name">脚印地图</div><div class="mat-qty">10000 份</div><div class="mat-use">引导前往 5 个线索区</div></div>
+      <div class="mat-item" style="border-left-color:var(--accent)"><div class="mat-name">大笨象脚印贴纸</div><div class="mat-qty">5 种 × 10000 份</div><div class="mat-use">挑战奖励 + 主舞台拼图</div></div>
+      <div class="mat-item" style="border-left-color:var(--accent)"><div class="mat-name">金色脚印拼图</div><div class="mat-qty">1 块</div><div class="mat-use">仪式核心 — 最后一枚</div></div>
+      <div class="mat-item" style="border-left-color:var(--accent)"><div class="mat-name">IP 衍生品</div><div class="mat-qty">5000 份</div><div class="mat-use">冰箱贴/笔等 · 现场售卖</div></div>
+      <div class="mat-item" style="border-left-color:var(--accent)"><div class="mat-name">音响系统/麦克风</div><div class="mat-qty">1 套</div><div class="mat-use">主持/话剧/喊话</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 10: 人员配置 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">05</span><div><div class="sec-cap">TEAM</div><h2 style="margin:0">人员配置</h2></div></div>
+    <p class="lead">支撑这场仪式的，是一支约 <strong style="color:var(--accent)">35-40 人</strong> 的执行团队 + 园区配套力量。</p>
+    <div class="ppl" style="margin-top:1.2rem">
+      <div class="ppl-item"><div class="ppl-num">1</div><div class="ppl-role">总执行 / 活动导演</div><div class="ppl-duty">整体调度 · 流程把控 · 突发事件处理</div></div>
+      <div class="ppl-item"><div class="ppl-num">1</div><div class="ppl-role">舞台主持人</div><div class="ppl-duty">开园仪式主持 · 引导拼图 · 嘉宾对接</div></div>
+      <div class="ppl-item"><div class="ppl-num">3-4</div><div class="ppl-role">签到引导员</div><div class="ppl-duty">北门签到 · 发放朋友卡/地图/贴纸册</div></div>
+      <div class="ppl-item"><div class="ppl-num">10</div><div class="ppl-role">挑战点引导员</div><div class="ppl-duty">5 挑战点 × 每点 2 名 · 讲解 + 发贴纸</div></div>
+      <div class="ppl-item"><div class="ppl-num">3</div><div class="ppl-role">手工老师</div><div class="ppl-duty">C-5 笑声线索区的手工指导</div></div>
+      <div class="ppl-item"><div class="ppl-num">2</div><div class="ppl-role">大笨象人偶扮演</div><div class="ppl-duty">1.75m · 绒面+光面 · 三点轮换</div></div>
+      <div class="ppl-item"><div class="ppl-num">2</div><div class="ppl-role">人偶协助员</div><div class="ppl-duty">协助大笨象人偶互动</div></div>
+      <div class="ppl-item"><div class="ppl-num">4</div><div class="ppl-role">拼图协助员</div><div class="ppl-duty">主舞台引导孩子有序贴脚印</div></div>
+      <div class="ppl-item"><div class="ppl-num">6-8</div><div class="ppl-role">儿童剧团演员</div><div class="ppl-duty">话剧演出</div></div>
+      <div class="ppl-item"><div class="ppl-num">2</div><div class="ppl-role">摄影 / 摄像</div><div class="ppl-duty">全程跟拍 + 后期剪辑</div></div>
+      <div class="ppl-item"><div class="ppl-num">1</div><div class="ppl-role">音响 / 技术</div><div class="ppl-duty">音响调试 · 麦克风 · 灯光</div></div>
+      <div class="ppl-item"><div class="ppl-num">配套</div><div class="ppl-role">安保 / 医疗</div><div class="ppl-duty">由公园方提供 · 执行团队对接</div></div>
+    </div>
+    <div class="quote" style="margin-top:1.8rem;text-align:center;font-size:clamp(1.1rem,1.6vw,1.4rem)">
+      你好，<strong style="color:var(--accent)">我来和你做朋友。</strong>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<nav class="dot-nav" id="dotNav"></nav>
+
+<script>
+const deck=document.getElementById('deck');
+const slides=document.querySelectorAll('.slide');
+const prog=document.getElementById('progress');
+const dotNav=document.getElementById('dotNav');
+const mobNav=document.getElementById('mobNav');
+const burger=document.getElementById('burger');
+let current=0;
+const total=slides.length;
+
+const titles=['封面','核心叙事','整体动线','环节A · 布置','环节B · 签到','环节C · 5 挑战','环节D · 仪式','环节E · 闭园','物料清单','人员配置'];
+
+for(let i=0;i<total;i++){
+  const b=document.createElement('button');
+  b.className='dot-btn';b.title=titles[i];
+  b.onclick=()=>go(i);
+  dotNav.appendChild(b);
+  const a=document.createElement('a');
+  a.href='#';a.textContent=(i+1)+'. '+titles[i];
+  a.onclick=(e)=>{e.preventDefault();go(i);mobNav.classList.remove('open')};
+  mobNav.appendChild(a);
+}
+
+function go(n){
+  current=Math.max(0,Math.min(n,total-1));
+  deck.style.transform=`translateY(-${current*100}vh)`;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  dotNav.querySelectorAll('.dot-btn').forEach((d,i)=>d.classList.toggle('active',i===current));
+  mobNav.querySelectorAll('a').forEach((d,i)=>d.classList.toggle('active',i===current));
+  prog.style.width=`${((current+1)/total)*100}%`;
+  slides[current].scrollTop=0;
+}
+
+burger.addEventListener('click',()=>mobNav.classList.toggle('open'));
+
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();go(current+1)}
+  if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();go(current-1)}
+});
+
+function atTop(el){return el.scrollTop<=5}
+function atBottom(el){return el.scrollTop+el.clientHeight>=el.scrollHeight-5}
+
+let wheelLock=false;
+document.addEventListener('wheel',e=>{
+  const slide=slides[current];
+  const scrollable=slide.scrollHeight>slide.clientHeight+10;
+  if(scrollable){
+    if(e.deltaY>0&&!atBottom(slide))return;
+    if(e.deltaY<0&&!atTop(slide))return;
+  }
+  e.preventDefault();
+  if(wheelLock)return;
+  wheelLock=true;
+  if(e.deltaY>5)go(current+1);
+  else if(e.deltaY<-5)go(current-1);
+  setTimeout(()=>{wheelLock=false},700);
+},{passive:false});
+
+let ty=0,touchSlide=null;
+document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;touchSlide=slides[current]},{passive:true});
+document.addEventListener('touchend',e=>{
+  const d=ty-e.changedTouches[0].clientY;
+  if(Math.abs(d)<60)return;
+  const slide=touchSlide||slides[current];
+  const scrollable=slide.scrollHeight>slide.clientHeight+10;
+  if(scrollable){
+    if(d>0&&!atBottom(slide))return;
+    if(d<0&&!atTop(slide))return;
+  }
+  go(current+(d>0?1:-1));
+});
+
+go(0);
+</script>
+</body>
+</html>
