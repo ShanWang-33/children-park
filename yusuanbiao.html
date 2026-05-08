@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳儿童公园开园日 · 预算估算表 v5</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf6ec;
+  --warm:#fbe8d3;
+  --card:#ffffff;
+  --accent:#e85a4f;
+  --accent-rgb:232,90,79;
+  --accent-light:#fde0dc;
+  --sky:#5cb6d6; --sky-light:#dbeef6;
+  --leaf:#7cb86b; --leaf-light:#e2f0db;
+  --gold:#e8b441; --gold-light:#fbeac8;
+  --plum:#9b6b9e; --plum-light:#ecdfee;
+  --teal:#3fa89c; --teal-light:#d5ece9;
+  --ink:#2b2722;
+  --ink2:#5a544c;
+  --muted:#9a9389;
+  --sans:'Noto Sans SC',system-ui,sans-serif;
+  --serif:'Noto Serif SC',Georgia,serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:200;width:0;transition:width .6s}
+
+.deck{display:flex;flex-direction:column;width:100%;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.slide{min-width:100vw;height:100vh;height:100dvh;display:flex;align-items:flex-start;justify-content:center;position:relative;overflow-x:hidden;overflow-y:auto;padding:clamp(1.2rem,3vw,3rem);padding-right:36px;-webkit-overflow-scrolling:touch}
+.slide::before{content:'';position:absolute;inset:0;opacity:.45;z-index:0;pointer-events:none}
+.slide:nth-child(1)::before{background:radial-gradient(ellipse at 20% 80%,var(--accent-light) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,var(--gold-light) 0%,transparent 55%)}
+.slide:nth-child(2)::before{background:radial-gradient(ellipse at 80% 70%,var(--sky-light) 0%,transparent 55%)}
+.slide:nth-child(3)::before{background:radial-gradient(ellipse at 10% 20%,var(--leaf-light) 0%,transparent 55%)}
+.slide:nth-child(4)::before{background:radial-gradient(ellipse at 90% 50%,var(--accent-light) 0%,transparent 55%)}
+.slide:nth-child(5)::before{background:radial-gradient(ellipse at 20% 90%,var(--gold-light) 0%,transparent 55%)}
+.slide:nth-child(6)::before{background:radial-gradient(ellipse at 70% 20%,var(--sky-light) 0%,transparent 55%)}
+.slide:nth-child(7)::before{background:radial-gradient(ellipse at 30% 70%,var(--plum-light) 0%,transparent 55%)}
+.slide:nth-child(8)::before{background:radial-gradient(ellipse at 80% 30%,var(--teal-light) 0%,transparent 55%)}
+.slide:nth-child(9)::before{background:radial-gradient(ellipse at 50% 80%,var(--accent-light) 0%,transparent 55%)}
+
+.slide-inner{max-width:1180px;width:100%;z-index:2;opacity:0;transform:translateY(24px) scale(.98);transition:all .8s cubic-bezier(.4,0,.2,1);padding:1rem 0}
+.slide.active .slide-inner{opacity:1;transform:translateY(0) scale(1)}
+
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5.5vw,4rem);line-height:1.15;color:var(--ink);letter-spacing:-.5px}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.25;color:var(--ink);margin-bottom:1.2rem}
+h3{font-family:var(--serif);font-weight:700;font-size:clamp(1.05rem,1.9vw,1.35rem);color:var(--ink);margin-bottom:.5rem}
+p{line-height:1.8;color:var(--ink2);font-size:clamp(.95rem,1.15vw,1.05rem)}
+.lead{font-size:clamp(1rem,1.4vw,1.2rem);color:var(--ink2);line-height:1.85}
+
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:999px;font-size:.78rem;font-weight:500;letter-spacing:.5px}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge-coral{background:var(--accent-light);color:var(--accent)}
+.badge-sky{background:var(--sky-light);color:var(--sky)}
+.badge-leaf{background:var(--leaf-light);color:var(--leaf)}
+.badge-gold{background:var(--gold-light);color:#b07b1a}
+.badge-plum{background:var(--plum-light);color:var(--plum)}
+.badge-teal{background:var(--teal-light);color:var(--teal)}
+
+.hero-num{font-family:var(--serif);font-weight:900;font-size:clamp(3rem,8vw,6rem);color:var(--accent);line-height:1;margin:1rem 0 .3rem;letter-spacing:-2px}
+.hero-sub{font-size:clamp(.95rem,1.3vw,1.15rem);color:var(--muted);letter-spacing:1px}
+
+.stats{display:flex;gap:clamp(1rem,3vw,3rem);flex-wrap:wrap;margin-top:1.5rem}
+.stat{padding:.5rem 0}
+.stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(1.5rem,2.6vw,2.1rem);color:var(--ink)}
+.stat .t{font-size:.85rem;color:var(--muted);margin-top:.2rem}
+
+.card{background:var(--card);border-radius:18px;padding:clamp(1rem,1.8vw,1.5rem);box-shadow:0 2px 14px rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.04);transition:all .35s cubic-bezier(.4,0,.2,1)}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.08)}
+.card .label{font-size:.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;font-weight:600}
+.card .value{font-family:var(--serif);font-weight:700;font-size:clamp(1.05rem,1.5vw,1.25rem);color:var(--ink);margin-bottom:.4rem}
+.card .price{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,2.4vw,2rem);color:var(--accent);line-height:1.1}
+.card .detail{font-size:.88rem;color:var(--ink2);line-height:1.65;margin-top:.4rem}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.2rem)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.3vw,1rem)}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.6rem,1.3vw,1rem)}
+.flex-row{display:flex;gap:clamp(1rem,2vw,2rem);align-items:start}
+
+.tbl-wrap{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);max-height:60vh;overflow-y:auto;margin-top:1rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+thead{position:sticky;top:0;z-index:1}
+th{background:var(--warm);text-align:left;padding:.8rem 1rem;font-weight:600;color:var(--ink);font-size:.8rem;letter-spacing:.5px}
+td{padding:.7rem 1rem;border-top:1px solid #f0e8db;color:var(--ink2);line-height:1.5}
+.price-cell{font-family:var(--serif);font-weight:700;color:var(--accent);text-align:right;white-space:nowrap}
+tr:hover td{background:#fffbf3}
+
+.chart-box{background:var(--card);border-radius:18px;padding:1rem;box-shadow:0 2px 14px rgba(0,0,0,.05)}
+
+.sec-title{display:flex;align-items:baseline;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
+.sec-num{font-family:var(--serif);font-weight:900;font-size:clamp(2.4rem,4.5vw,3.5rem);color:var(--accent);line-height:1;opacity:.85}
+.sec-cap{font-size:.8rem;color:var(--muted);letter-spacing:2px}
+
+.cat-bar{display:flex;align-items:center;gap:.8rem;background:var(--card);border-radius:12px;padding:.85rem 1rem;margin-bottom:.5rem;transition:all .3s}
+.cat-bar:hover{transform:translateX(4px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.cat-bar .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.cat-bar .name{flex:1;font-size:.92rem;color:var(--ink);font-weight:500}
+.cat-bar .pct{font-size:.78rem;color:var(--muted);font-family:var(--serif);font-weight:600;min-width:50px;text-align:right}
+.cat-bar .amt{font-family:var(--serif);font-weight:800;color:var(--accent);font-size:1rem;min-width:90px;text-align:right}
+
+.note-box{background:linear-gradient(135deg,var(--warm) 0%,var(--gold-light) 100%);border-radius:18px;padding:1.2rem 1.5rem;margin-top:1rem}
+.note-box h3{margin-bottom:.6rem;color:#8a5e15}
+.note-box p{font-size:.92rem;line-height:1.85;color:var(--ink)}
+
+.slide.active .stagger > *{opacity:0;animation:rise .65s cubic-bezier(.4,0,.2,1) forwards;transform:translateY(16px)}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+.slide.active .stagger > *:nth-child(1){animation-delay:.05s}
+.slide.active .stagger > *:nth-child(2){animation-delay:.12s}
+.slide.active .stagger > *:nth-child(3){animation-delay:.19s}
+.slide.active .stagger > *:nth-child(4){animation-delay:.26s}
+.slide.active .stagger > *:nth-child(5){animation-delay:.33s}
+.slide.active .stagger > *:nth-child(6){animation-delay:.40s}
+.slide.active .stagger > *:nth-child(7){animation-delay:.47s}
+.slide.active .stagger > *:nth-child(8){animation-delay:.54s}
+
+.cover-shapes{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.cover-shapes span{position:absolute;border-radius:50%;opacity:.5}
+.cover-shapes span:nth-child(1){width:200px;height:200px;background:var(--accent-light);top:8%;right:6%}
+.cover-shapes span:nth-child(2){width:140px;height:140px;background:var(--gold-light);bottom:12%;left:8%}
+.cover-shapes span:nth-child(3){width:90px;height:90px;background:var(--sky-light);top:35%;left:18%}
+
+.dot-nav{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
+.dot-btn{width:10px;height:10px;border-radius:50%;border:none;background:rgba(0,0,0,.18);cursor:pointer;transition:all .3s;padding:0}
+.dot-btn:hover{background:var(--accent);transform:scale(1.3)}
+.dot-btn.active{background:var(--accent);transform:scale(1.4);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.2)}
+
+.burger{display:none;position:fixed;top:14px;right:14px;z-index:200;background:var(--card);border:none;border-radius:10px;width:42px;height:42px;font-size:1.3rem;box-shadow:0 2px 10px rgba(0,0,0,.1);cursor:pointer}
+.mob-nav{display:none;position:fixed;top:64px;right:14px;z-index:200;background:var(--card);border-radius:14px;padding:10px 0;box-shadow:0 8px 30px rgba(0,0,0,.15);max-height:75vh;overflow-y:auto;min-width:220px}
+.mob-nav a{display:block;padding:10px 22px;color:var(--ink);text-decoration:none;font-size:.9rem}
+.mob-nav a:hover,.mob-nav a.active{color:var(--accent);background:rgba(var(--accent-rgb),.06)}
+.mob-nav.open{display:block}
+
+@media (max-width:768px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .flex-row{flex-direction:column;gap:1rem}
+  .slide{padding:1rem;padding-right:20px}
+  .burger{display:block}
+  .dot-nav{display:none}
+  .stats{gap:1.2rem}
+  .flex-row .chart-box{max-width:100%!important;width:100%}
+  .flex-row .chart-box canvas{max-height:none!important;min-height:240px}
+  table .mob-hide{display:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress"></div>
+<button class="burger" id="burger" aria-label="菜单">☰</button>
+<nav class="mob-nav" id="mobNav"></nav>
+
+<div class="deck" id="deck">
+
+<!-- Slide 1: 封面 -->
+<section class="slide">
+  <div class="cover-shapes"><span></span><span></span><span></span></div>
+  <div class="slide-inner stagger">
+    <div class="badge badge-coral">2026 / 06 · 预算估算 v5</div>
+    <h1 style="margin-top:1rem">深圳儿童公园<br><span style="color:var(--accent)">开园日 · 预算估算表</span></h1>
+    <div class="lead" style="margin-top:1rem;font-family:var(--serif);font-size:clamp(1.05rem,1.6vw,1.4rem);color:var(--ink2)">含 暑期周末运营(6/1 - 8/31, 约 26 天)</div>
+    <div class="hero-num">¥55.19 万</div>
+    <div class="hero-sub">合计总预算(含 6% 税额)</div>
+    <div class="stats">
+      <div class="stat"><div class="n">¥29.92万</div><div class="t">开园日</div></div>
+      <div class="stat"><div class="n">¥13.55万</div><div class="t">周末运营 26 天</div></div>
+      <div class="stat"><div class="n">¥8.10万</div><div class="t">贯穿传播</div></div>
+      <div class="stat"><div class="n">¥3.62万</div><div class="t">设计费 + 税</div></div>
+    </div>
+    <p style="margin-top:2rem;color:var(--muted);font-size:.9rem">主题：帮助大笨象交 100 个朋友</p>
+  </div>
+</section>
+
+<!-- Slide 2: 三大模块概览 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">01</span><div><div class="sec-cap">OVERVIEW</div><h2 style="margin:0">预算结构 · 三大模块</h2></div></div>
+    <div class="flex-row" style="margin-top:1.5rem;align-items:center">
+      <div class="chart-box" style="flex:0 0 50%;max-width:520px"><canvas id="chartOverview" height="320"></canvas></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:.8rem">
+        <div class="card" style="border-left:5px solid var(--accent)">
+          <div class="label">开园日 · 6 月 1 日单日</div>
+          <div class="value" style="display:flex;justify-content:space-between;align-items:baseline"><span>主仪式 + 5 挑战 + 团队</span><span style="color:var(--accent);font-size:1.3rem">¥299,200</span></div>
+          <div class="detail">含 IP 装置、视觉系统、5 挑战物料、开园仪式、工作人员、运营辅助</div>
+        </div>
+        <div class="card" style="border-left:5px solid var(--teal)">
+          <div class="label">周末运营 · 6/1 - 8/31 (26天)</div>
+          <div class="value" style="display:flex;justify-content:space-between;align-items:baseline"><span>持续运营 · 让 IP 活下去</span><span style="color:var(--teal);font-size:1.3rem">¥135,480</span></div>
+          <div class="detail">人偶+协助员+引导员 · 手工/贴纸/朋友卡补货 · 餐补/交通/维护</div>
+        </div>
+        <div class="card" style="border-left:5px solid var(--plum)">
+          <div class="label">贯穿全程 · 传播推广</div>
+          <div class="value" style="display:flex;justify-content:space-between;align-items:baseline"><span>KOL + 内容运营 + 媒体</span><span style="color:var(--plum);font-size:1.3rem">¥81,000</span></div>
+          <div class="detail">8-12 位 KOL · 3 个月内容运营 · 媒体投放 · 摄影摄像</div>
+        </div>
+        <div class="card" style="border-left:5px solid var(--gold)">
+          <div class="label">活动设计费 + 6% 税</div>
+          <div class="value" style="display:flex;justify-content:space-between;align-items:baseline"><span>方案设计 + 税额</span><span style="color:#b07b1a;font-size:1.3rem">¥36,240.8</span></div>
+          <div class="detail">活动设计 ¥5,000 + 税额 ¥31,240.8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: 10个子类别分布 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">02</span><div><div class="sec-cap">CATEGORIES</div><h2 style="margin:0">10 个子类别预算分布</h2></div></div>
+    <p class="lead">钱花在哪里？按类别从高到低排列。</p>
+    <div style="margin-top:1.2rem">
+      <div class="cat-bar"><div class="dot" style="background:var(--accent)"></div><div class="name">[开园日] 5 挑战点专项物料</div><div class="pct">22.85%</div><div class="amt">¥126,100</div></div>
+      <div class="cat-bar"><div class="dot" style="background:var(--plum)"></div><div class="name">[贯穿] 传播推广</div><div class="pct">14.68%</div><div class="amt">¥81,000</div></div>
+      <div class="cat-bar"><div class="dot" style="background:var(--teal)"></div><div class="name">[周末运营] 耗材补货</div><div class="pct">12.16%</div><div class="amt">¥67,100</div></div>
+      <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">[开园日] 大笨象 IP 核心装置</div><div class="pct">9.78%</div><div class="amt">¥54,000</div></div>
+      <div class="cat-bar"><div class="dot" style="background:var(--gold)"></div><div class="name">[开园日] 开园仪式</div><div class="pct">8.61%</div><div class="amt">¥47,500</div></div>
+      <div class="cat-bar"><div class="dot" style="background:var(--leaf)"></div><div class="name">[周末运营] 人员费用</div><div class="pct">8.48%</div><div class="amt">¥46,800</div></div>
+      <div class="cat-bar"><div class="dot" style="background:#d97757"></div><div class="name">[开园日] 全园 IP 视觉系统</div><div class="pct">7.88%</div><div class="amt">¥43,500</div></div>
+      <div class="cat-bar"><div class="dot" style="background:#7e8aae"></div><div class="name">[周末运营] 运营辅助</div><div class="pct">3.91%</div><div class="amt">¥21,580</div></div>
+      <div class="cat-bar"><div class="dot" style="background:#a98b6f"></div><div class="name">[开园日] 运营辅助</div><div class="pct">3.32%</div><div class="amt">¥18,300</div></div>
+      <div class="cat-bar"><div class="dot" style="background:#b08a9f"></div><div class="name">[开园日] 园区工作人员</div><div class="pct">1.78%</div><div class="amt">¥9,800</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: 5挑战点物料 (最大块) -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-coral">最大单项</span><div><div class="sec-cap">CATEGORY · 22.85%</div><h2 style="margin:0">5 挑战点专项物料 · ¥126,100</h2></div></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>项目</th><th class="mob-hide">规格/说明</th><th>规模</th><th style="text-align:right">预算</th></tr></thead>
+        <tbody>
+          <tr><td><strong>大笨象 IP 衍生品</strong></td><td class="mob-hide">冰箱贴/钥匙扣/笔/贴纸册等限定款</td><td>5000 份</td><td class="price-cell">¥35,000</td></tr>
+          <tr><td><strong>C-5 织梦手工</strong></td><td class="mob-hide">折叠桌椅×10 + 手工材料包 2000 份 + IP 背景板</td><td>1 套</td><td class="price-cell">¥40,000</td></tr>
+          <tr><td>大笨象朋友卡</td><td class="mob-hide">32K 双面印刷 含填写区</td><td>10000 份</td><td class="price-cell">¥15,000</td></tr>
+          <tr><td>脚印地图</td><td class="mob-hide">A4 折页 含 5 线索区指引</td><td>10000 份</td><td class="price-cell">¥10,000</td></tr>
+          <tr><td>C-2 时光信</td><td class="mob-hide">信纸/信封 10000 份 + 投递箱 + 桌椅</td><td>1 套</td><td class="price-cell">¥8,000</td></tr>
+          <tr><td>C-3 慢慢来体验</td><td class="mob-hide">脚印地贴 + 平衡木 + 软质石头</td><td>1 套</td><td class="price-cell">¥5,500</td></tr>
+          <tr><td>C-1 象鼻传球</td><td class="mob-hide">布带/软管×10 + 海绵球×30 + 路障锥</td><td>1 套</td><td class="price-cell">¥3,500</td></tr>
+          <tr><td>C-4 和大笨象做朋友</td><td class="mob-hide">互动卡片 + 合影背景板 + 说明牌</td><td>1 套</td><td class="price-cell">¥3,000</td></tr>
+          <tr><td>挑战点说明牌+引导标识</td><td class="mob-hide">A2 防水亚克力 含支架</td><td>5 块</td><td class="price-cell">¥3,000</td></tr>
+          <tr><td>大笨象脚印贴纸 (5种)</td><td class="mob-hide">5 种主题 各 10000 份 共 50000 枚</td><td>50000 枚</td><td class="price-cell">¥3,000</td></tr>
+          <tr><td>金色脚印拼图(领导用)</td><td class="mob-hide">烫金/金属质感 仪式核心道具</td><td>1 块</td><td class="price-cell">¥100</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box"><h3>💡 提示</h3><p>C-5 织梦手工 + IP 衍生品 + 朋友卡这三项占了 5 挑战预算的 <strong>71%</strong>，主要是因为单价 × 1 万份的派发体量。</p></div>
+  </div>
+</section>
+
+<!-- Slide 5: IP核心装置 + 全园视觉 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-sky">视觉与装置</span><div><div class="sec-cap">IP CORE + VISUAL</div><h2 style="margin:0">IP 核心装置 + 全园视觉系统 · ¥97,500</h2></div></div>
+    <div class="grid-2" style="margin-top:1rem">
+      <div>
+        <h3 style="color:var(--accent)">大笨象 IP 核心装置 · ¥54,000</h3>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.6rem">
+          <div class="cat-bar"><div class="dot" style="background:var(--accent)"></div><div class="name">大笨象人偶服装(绒面+光面)</div><div class="amt">¥22,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--accent)"></div><div class="name">巨型充气大笨象(8米)</div><div class="amt">¥18,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--accent)"></div><div class="name">「今天谁陪了谁」充气互动墙</div><div class="amt">¥8,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--accent)"></div><div class="name">大笨象语录气球装置 6-8 件</div><div class="amt">¥5,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--accent)"></div><div class="name">人偶扮演兼职 + 协助员(开园日)</div><div class="amt">¥1,000</div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--sky)">全园 IP 视觉系统 · ¥43,500</h3>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.6rem">
+          <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">中小型 IP 立牌/导视牌 15-20 个</div><div class="amt">¥13,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">大型 IP 打卡背景板 5-8 块</div><div class="amt">¥10,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">舞台装饰物料(IP 元素)</div><div class="amt">¥7,500</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">地面 IP 彩绘 80-120 ㎡</div><div class="amt">¥5,500</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">围栏/器械贴膜 100-150 ㎡</div><div class="amt">¥5,000</div></div>
+          <div class="cat-bar"><div class="dot" style="background:var(--sky)"></div><div class="name">主题旗帜/吊旗 30-50 面</div><div class="amt">¥2,500</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-box" style="background:linear-gradient(135deg,var(--sky-light) 0%,var(--leaf-light) 100%)"><h3 style="color:#3a7a90">🔁 复用价值</h3><p>IP 核心装置 + 视觉系统在开园日后会<strong>持续保留至周末运营期</strong>，是一笔"开园 + 3 个月运营"共享的投入。</p></div>
+  </div>
+</section>
+
+<!-- Slide 6: 开园仪式 + 工作人员 + 运营辅助 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-gold">仪式 · 团队 · 后勤</span><div><div class="sec-cap">CEREMONY + STAFF + LOGISTICS</div><h2 style="margin:0">仪式 + 工作人员 + 运营辅助 · ¥75,600</h2></div></div>
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="card" style="border-top:4px solid var(--gold)">
+        <div class="label">开园仪式 · ¥47,500</div>
+        <div style="margin-top:.5rem;font-size:.9rem;color:var(--ink2);line-height:1.85">
+          <div style="display:flex;justify-content:space-between"><span>儿童话剧演出</span><strong style="color:var(--accent)">¥20,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>开园仪式主持人</span><strong style="color:var(--accent)">¥10,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>话剧布景/道具</span><strong style="color:var(--accent)">¥8,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>演出策划及现场执行</span><strong style="color:var(--accent)">¥8,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>撒花/气球释放</span><strong style="color:var(--accent)">¥1,500</strong></div>
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--leaf)">
+        <div class="label">园区工作人员(开园日) · ¥9,800</div>
+        <div style="margin-top:.5rem;font-size:.9rem;color:var(--ink2);line-height:1.85">
+          <div style="display:flex;justify-content:space-between"><span>总执行/活动导演</span><strong style="color:var(--accent)">¥5,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>5 挑战点引导员 ×10</span><strong style="color:var(--accent)">¥2,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>手工坊老师 ×3</span><strong style="color:var(--accent)">¥1,200</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>签到引导员 ×4</span><strong style="color:var(--accent)">¥800</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>拼图协助员 ×4</span><strong style="color:var(--accent)">¥800</strong></div>
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--plum)">
+        <div class="label">运营辅助(开园日) · ¥18,300</div>
+        <div style="margin-top:.5rem;font-size:.9rem;color:var(--ink2);line-height:1.85">
+          <div style="display:flex;justify-content:space-between"><span>物料运费/物流费</span><strong style="color:var(--accent)">¥8,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>装置安装调试</span><strong style="color:var(--accent)">¥3,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>打印/耗材/水/杂项</span><strong style="color:var(--accent)">¥3,000</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>交通费</span><strong style="color:var(--accent)">¥2,500</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>工作人员餐补</span><strong style="color:var(--accent)">¥1,800</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 7: 周末运营 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-teal">持续运营</span><div><div class="sec-cap">WEEKEND OPERATION · 6/1 - 8/31</div><h2 style="margin:0">周末运营 26 天 · ¥135,480</h2></div></div>
+    <p class="lead">让大笨象继续"住"在公园里 —— 开园不是终点，是 3 个月暑期陪伴的起点。</p>
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="card" style="border-top:4px solid var(--teal)">
+        <div class="label">人员费用</div>
+        <div class="price">¥46,800</div>
+        <div class="detail" style="line-height:1.85">
+          • 大笨象人偶扮演 ×2 ¥15,600<br>
+          • 人偶协助员 ×2 ¥10,400<br>
+          • C-5 手工老师 ×1 ¥7,800<br>
+          • 现场协调/班长 ×1 ¥7,800<br>
+          • C-1 引导员 ×1 ¥5,200<br>
+          • C-4 合影区(协助员兼任) ¥0
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--accent)">
+        <div class="label">耗材补货</div>
+        <div class="price">¥67,100</div>
+        <div class="detail" style="line-height:1.85">
+          • C-5 手工材料包补货 2000 份 ¥30,000<br>
+          • IP 衍生品补货 3000 份 ¥21,000<br>
+          • 脚印地图补货 ¥5,500<br>
+          • 大笨象朋友卡补货 ¥5,000<br>
+          • 充气装置维护 ×3 ¥2,500<br>
+          • 人偶服装清洗 ×3 ¥1,500<br>
+          • 脚印贴纸 / 海绵球补货 ¥1,600
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--plum)">
+        <div class="label">运营辅助</div>
+        <div class="price">¥21,580</div>
+        <div class="detail" style="line-height:1.85">
+          • 周末工作人员餐补 ¥12,480<br>
+          (8 人 × 60 元/人/天 × 26 天)<br>
+          • 周末交通/接送 ¥5,200<br>
+          • 周末打印/杂项耗材 ¥3,900
+        </div>
+      </div>
+    </div>
+    <div class="note-box" style="background:linear-gradient(135deg,var(--teal-light) 0%,var(--sky-light) 100%);margin-top:1rem"><h3 style="color:#2a7770">📅 周末安排</h3><p>每个周末日均成本约 <strong>¥5,210</strong>(含人员+耗材+辅助)。周末开放 3 个挑战点(C-1 / C-4 / C-5)，C-2 时光信、C-3 慢慢来不开放。</p></div>
+  </div>
+</section>
+
+<!-- Slide 8: 传播推广 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="badge badge-plum">贯穿全程</span><div><div class="sec-cap">MARKETING</div><h2 style="margin:0">传播推广 · ¥81,000</h2></div></div>
+    <p class="lead">开园前预热 → 开园日爆发 → 3 个月持续运营内容。</p>
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card" style="border-left:5px solid var(--plum)">
+        <div class="label">内容运营 (3 个月)</div>
+        <div class="value">小红书/抖音/微信图文视频</div>
+        <div class="price">¥30,000</div>
+        <div class="detail">话题策划 + 内容制作 + 覆盖周末运营 3 个月</div>
+      </div>
+      <div class="card" style="border-left:5px solid var(--accent)">
+        <div class="label">深港亲子 KOL 合作</div>
+        <div class="value">8-12 位小微博主 (1-5 万粉)</div>
+        <div class="price">¥25,000</div>
+        <div class="detail">1000-3000 元/位 · 小红书/抖音亲子博主</div>
+      </div>
+      <div class="card" style="border-left:5px solid var(--gold)">
+        <div class="label">开园日网媒投放</div>
+        <div class="value">深圳本地 + 大湾区媒体</div>
+        <div class="price">¥20,000</div>
+        <div class="detail">开园前、开园当天及运营期间媒体通稿</div>
+      </div>
+      <div class="card" style="border-left:5px solid var(--leaf)">
+        <div class="label">开园日专业摄影 + 摄像</div>
+        <div class="value">1 摄影 + 1 摄像 全天 (含后期)</div>
+        <div class="price">¥6,000</div>
+        <div class="detail">深圳本地摄影团队 · 含后期剪辑</div>
+      </div>
+    </div>
+    <div class="note-box" style="margin-top:1.2rem"><h3>📣 投放节奏</h3><p>预热期(开园前 2-3 周)以 KOL 种草 + 内容铺设为主；开园当天集中爆发(网媒+摄影摄像产出物料)；之后 3 个月用内容运营持续输出周末活动信息。</p></div>
+  </div>
+</section>
+
+<!-- Slide 9: 总结 -->
+<section class="slide">
+  <div class="slide-inner stagger">
+    <div class="sec-title"><span class="sec-num">04</span><div><div class="sec-cap">SUMMARY</div><h2 style="margin:0">预算汇总</h2></div></div>
+    <div class="grid-4" style="margin-top:1rem">
+      <div class="card" style="text-align:center;border-top:4px solid var(--accent)">
+        <div class="label">开园日</div>
+        <div class="price">¥299,200</div>
+        <div class="detail">54.2% · 单日大爆发</div>
+      </div>
+      <div class="card" style="text-align:center;border-top:4px solid var(--teal)">
+        <div class="label">周末运营 26 天</div>
+        <div class="price">¥135,480</div>
+        <div class="detail">24.5% · 持续陪伴</div>
+      </div>
+      <div class="card" style="text-align:center;border-top:4px solid var(--plum)">
+        <div class="label">贯穿传播</div>
+        <div class="price">¥81,000</div>
+        <div class="detail">14.7% · 声量放大</div>
+      </div>
+      <div class="card" style="text-align:center;border-top:4px solid var(--gold)">
+        <div class="label">设计费 + 6% 税</div>
+        <div class="price">¥36,240.8</div>
+        <div class="detail">6.6% · 方案 + 税额</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.5rem;text-align:center;background:linear-gradient(135deg,var(--warm) 0%,var(--accent-light) 100%);border:none">
+      <div class="label" style="color:var(--accent)">合 计 总 预 算</div>
+      <div class="hero-num" style="font-size:clamp(2.8rem,7vw,5rem);margin:.5rem 0">¥551,920.8</div>
+      <div class="hero-sub">约 ¥55.19 万 · 含 6% 税额</div>
+    </div>
+    <div class="note-box" style="margin-top:1.2rem"><h3>📌 备注</h3><p>本预算为 v5 版本，含 暑期周末运营(6/1 - 8/31 约 26 天)。各项预算以"采购 + 招募"为主要落地方式，大部分 IP 装置可在开园后保留作为常态使用，实际单日摊销成本会显著降低。</p></div>
+  </div>
+</section>
+
+</div>
+
+<nav class="dot-nav" id="dotNav"></nav>
+
+<script>
+const deck=document.getElementById('deck');
+const slides=document.querySelectorAll('.slide');
+const prog=document.getElementById('progress');
+const dotNav=document.getElementById('dotNav');
+const mobNav=document.getElementById('mobNav');
+const burger=document.getElementById('burger');
+let current=0;
+const total=slides.length;
+
+const titles=['封面 · 总预算','三大模块概览','10 子类别分布','5 挑战点物料','IP 装置 + 视觉','仪式 + 团队 + 后勤','周末运营','传播推广','汇总'];
+
+for(let i=0;i<total;i++){
+  const b=document.createElement('button');
+  b.className='dot-btn';b.title=titles[i];
+  b.onclick=()=>go(i);
+  dotNav.appendChild(b);
+  const a=document.createElement('a');
+  a.href='#';a.textContent=(i+1)+'. '+titles[i];
+  a.onclick=(e)=>{e.preventDefault();go(i);mobNav.classList.remove('open')};
+  mobNav.appendChild(a);
+}
+
+const chartsInited=new Set();
+function initCharts(idx){
+  if(chartsInited.has(idx))return;
+  chartsInited.add(idx);
+  if(idx===1){
+    new Chart(document.getElementById('chartOverview'),{
+      type:'doughnut',
+      data:{
+        labels:['开园日','周末运营 26天','贯穿传播','设计费+税'],
+        datasets:[{data:[299200,135480,81000,36240.8],backgroundColor:['#e85a4f','#3fa89c','#9b6b9e','#e8b441'],borderColor:'#fdf6ec',borderWidth:3}]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{
+          legend:{position:'bottom',labels:{font:{family:'Noto Sans SC',size:13},padding:14,boxWidth:14}},
+          tooltip:{callbacks:{label:c=>c.label+': ¥'+c.parsed.toLocaleString()+' ('+(c.parsed/551920.8*100).toFixed(1)+'%)'}}
+        },
+        cutout:'58%'
+      }
+    });
+  }
+}
+
+function go(n){
+  current=Math.max(0,Math.min(n,total-1));
+  deck.style.transform=`translateY(-${current*100}vh)`;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  dotNav.querySelectorAll('.dot-btn').forEach((d,i)=>d.classList.toggle('active',i===current));
+  mobNav.querySelectorAll('a').forEach((d,i)=>d.classList.toggle('active',i===current));
+  prog.style.width=`${((current+1)/total)*100}%`;
+  slides[current].scrollTop=0;
+  initCharts(current);
+}
+
+burger.addEventListener('click',()=>mobNav.classList.toggle('open'));
+
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();go(current+1)}
+  if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();go(current-1)}
+});
+
+function atTop(el){return el.scrollTop<=5}
+function atBottom(el){return el.scrollTop+el.clientHeight>=el.scrollHeight-5}
+
+let wheelLock=false;
+document.addEventListener('wheel',e=>{
+  const slide=slides[current];
+  const scrollable=slide.scrollHeight>slide.clientHeight+10;
+  if(scrollable){
+    if(e.deltaY>0&&!atBottom(slide))return;
+    if(e.deltaY<0&&!atTop(slide))return;
+  }
+  e.preventDefault();
+  if(wheelLock)return;
+  wheelLock=true;
+  if(e.deltaY>5)go(current+1);
+  else if(e.deltaY<-5)go(current-1);
+  setTimeout(()=>{wheelLock=false},700);
+},{passive:false});
+
+let ty=0,touchSlide=null;
+document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;touchSlide=slides[current]},{passive:true});
+document.addEventListener('touchend',e=>{
+  const d=ty-e.changedTouches[0].clientY;
+  if(Math.abs(d)<60)return;
+  const slide=touchSlide||slides[current];
+  const scrollable=slide.scrollHeight>slide.clientHeight+10;
+  if(scrollable){
+    if(d>0&&!atBottom(slide))return;
+    if(d<0&&!atTop(slide))return;
+  }
+  go(current+(d>0?1:-1));
+});
+
+go(0);
+</script>
+</body>
+</html>
