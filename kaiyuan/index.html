@@ -214,7 +214,8 @@ tr:hover td{background:rgba(var(--accent-rgb),.04)}
 .family-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
 .family-card{background:var(--card);border-radius:16px;padding:1.2rem 1.1rem;text-align:center;border:1px solid var(--line);transition:all .35s}
 .family-card:hover{transform:translateY(-6px)}
-.family-card .fc-icon{width:54px;height:54px;border-radius:50%;background:var(--accent-light);color:var(--accent);font-size:1.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto .65rem;font-family:var(--serif)}
+.family-card .fc-icon{width:62px;height:62px;border-radius:50%;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto .65rem}
+.family-card .fc-icon svg{width:32px;height:32px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .family-card:nth-child(2) .fc-icon{background:var(--sky-light);color:var(--sky)}
 .family-card:nth-child(3) .fc-icon{background:var(--leaf-light);color:#4f9c4b}
 .family-card .fc-title{font-weight:700;color:var(--ink);font-size:1rem;margin-bottom:.3rem}
@@ -353,9 +354,18 @@ tr:hover td{background:rgba(var(--accent-rgb),.04)}
         <p style="color:var(--accent);font-weight:700">"请小朋友们帮我收集 3 份快乐能量,一起打开公园大门!"</p>
       </div>
       <div class="family-grid">
-        <div class="family-card"><div class="fc-icon">代</div><div class="fc-title">童年家长代表</div><div class="fc-desc">小时候带孩子来玩过大象滑梯</div></div>
-        <div class="family-card"><div class="fc-icon">当</div><div class="fc-title">当下父母代表</div><div class="fc-desc">现在带孩子来的父母</div></div>
-        <div class="family-card"><div class="fc-icon">新</div><div class="fc-title">第一次来的小朋友</div><div class="fc-desc">代表新一代童年正式开启</div></div>
+        <div class="family-card">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
+          <div class="fc-title">童年家长代表</div><div class="fc-desc">小时候带孩子来玩过大象滑梯</div>
+        </div>
+        <div class="family-card">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="fc-title">当下父母代表</div><div class="fc-desc">现在带孩子来的父母</div>
+        </div>
+        <div class="family-card">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="fc-title">第一次来的小朋友</div><div class="fc-desc">代表新一代童年正式开启</div>
+        </div>
       </div>
       <div class="hl-box" style="margin-top:1.2rem">
         <div class="hl-title">三组家庭与象当当击掌,共同喊出 ——</div>
@@ -428,9 +438,15 @@ tr:hover td{background:rgba(var(--accent-rgb),.04)}
       <div class="badge badge-plum">第三章 · 舞台剧设计</div>
       <h2>五幕短剧 · 10 分钟完成</h2>
       <p style="max-width:820px"><b style="color:var(--accent)">"呼唤 — 点亮 — 开园"</b> — 用一场短剧串起整场开园情绪。</p>
-      <div class="ip-show" style="margin:1rem 0;max-width:860px;margin-left:auto;margin-right:auto">
-        <img src="images/slide9_stage.jpg" alt="舞台剧设计示意" loading="lazy">
-        <div class="img-caption">舞台剧设计示意图</div>
+      <div class="grid-2" style="margin:1rem 0">
+        <div class="ip-show">
+          <img src="images/slide9_stage.jpg" alt="舞台剧设计示意" loading="lazy">
+          <div class="img-caption">舞台剧设计示意图</div>
+        </div>
+        <div class="ip-show">
+          <img src="images/stage_inflatable.jpg" alt="象当当 IP 充气剧院舞台" loading="lazy">
+          <div class="img-caption">象当当 IP 充气剧院舞台</div>
+        </div>
       </div>
       <div class="grid-3" style="gap:.7rem">
         <div class="card card-pink"><div class="label">第一幕 · 2 分钟</div><div class="value" style="font-size:1.1rem">童年里传来"当当"声</div></div>
@@ -606,7 +622,7 @@ tr:hover td{background:rgba(var(--accent-rgb),.04)}
       <h2>气模 · 人偶 · 衍生产品</h2>
       <p style="max-width:820px">把象当当从舞台延展到全园,让 IP 形象在不同载体上反复出现,强化记忆点。</p>
       <div class="grid-3" style="margin-top:1rem">
-        <div class="ip-show"><img src="images/extra1.jpg" alt="象当当气模" loading="lazy"><div class="img-caption">象当当气模示意图</div></div>
+        <div class="ip-show"><img src="images/qimo.jpg" alt="象当当气模" loading="lazy"><div class="img-caption">象当当气模示意图</div></div>
         <div class="ip-show"><img src="images/puppet.jpg" alt="象当当人偶" loading="lazy"><div class="img-caption">象当当人偶示意图</div></div>
         <div class="ip-show"><img src="images/ip_products.jpg" alt="衍生产品" loading="lazy"><div class="img-caption">同系列 IP 衍生产品</div></div>
       </div>
